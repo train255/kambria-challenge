@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <!--
+                Add menu items here
+                Menu items with icon and Title
+        -->
+        <item
+            android:id="@+id/first"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Ghi âm tiếng ho" />
+        <item
+            android:id="@+id/second"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Câu hỏi thường gặp" />
+    </group>
+</menu>

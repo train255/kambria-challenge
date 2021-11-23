@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CovidDetection</string>
+    <string name="title">Sound Anomaly Detection</string>
+</resources>
