@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -50,6 +51,7 @@ public class RecordFragment extends Fragment {
     private LinearLayout formUpload;
     private Button uploadButton;
     private RadioGroup radioGroup;
+    private String testType = "";
     private Thread recordingThread;
     private Thread recognitionThread;
     boolean shouldContinueRecognition = true;
@@ -59,6 +61,7 @@ public class RecordFragment extends Fragment {
 
     private Interpreter interpreter;
     private AudioRecord recorder = null;
+    private String time_count = "";
 
     // Working variables.
     float[] recordingBuffer = new float[RECORDING_LENGTH];
@@ -88,7 +91,7 @@ public class RecordFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        uploadFile();
+                        uploadFile(view);
                     }
                 });
 
@@ -98,6 +101,19 @@ public class RecordFragment extends Fragment {
         formUpload = (LinearLayout) view.findViewById(R.id.formUpload);
 
         radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId){
+                    case R.id.radioButton_pcr:
+                        testType = "pcr";
+                        break;
+                    case R.id.radioButton_qtest:
+                        testType = "qtest";
+                        break;
+                }
+            }
+        });
 
         try {
             interpreter = new Interpreter(loadModelFile(),null);
@@ -109,7 +125,7 @@ public class RecordFragment extends Fragment {
         return view;
     }
 
-    private String uploadFile() {
+    private String uploadFile(View view) {
         int serverResponseCode = 0;
         try {
             String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.pcm";;
@@ -127,7 +143,7 @@ public class RecordFragment extends Fragment {
             if (sourceFile.isFile()) {
 
                 try {
-                    String upLoadServerUri = "https://52c0-2402-800-619d-7dc5-00-3.ngrok.io/uploadAudio";
+                    String upLoadServerUri = "https://c9b6-2402-800-619d-7dc5-00-3.ngrok.io/uploadAudio";
 
                     // open a URL connection to the Servlet
                     FileInputStream fileInputStream = new FileInputStream(sourceFile);
@@ -145,8 +161,10 @@ public class RecordFragment extends Fragment {
                     conn.setRequestProperty("Content-Type",
                             "multipart/form-data;boundary=" + boundary);
                     conn.setRequestProperty("audio", sourceFileUri);
-                    int selectedId = radioGroup.getCheckedRadioButtonId();
-                    conn.setRequestProperty("test_id", "select_" + selectedId);
+
+                    System.out.println(testType);
+
+                    conn.setRequestProperty("test_id", "select_" + testType);
 
                     dos = new DataOutputStream(conn.getOutputStream());
 
@@ -274,29 +292,7 @@ public class RecordFragment extends Fragment {
 
         recorder.startRecording();
         Log.v(LOG_TAG, "Start recording");
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                new CountDownTimer(5000, 1000) {
-                    public void onTick(long millisUntilFinished) {
-                        titleText.setText(millisUntilFinished / 1000 + " giây");
-                        titleText.setTextColor(Color.parseColor("#212121"));
-                    }
-                    public void onFinish() {
-                        titleText.setText("Đang dự đoán...");
-                        titleText.setTextColor(Color.parseColor("#212121"));
-                        shouldContinue = false;
-                        recorder.stop();
-                        recorder.release();
-                        recorder = null;
-                        recordingThread = null;
-                        recognitionThread = null;
-                        startRecognition();
-                    }
-                }.start();
-            }
-        });
-
+        
         String filepath = getContext().getCacheDir().getAbsolutePath();
         Log.v(LOG_TAG, filepath);
         FileOutputStream outStr = null;
@@ -314,10 +310,41 @@ public class RecordFragment extends Fragment {
                 byte[] audioBytes = new byte[Float.BYTES * audioBuffer.length];
                 ByteBuffer.wrap(audioBytes).asFloatBuffer().put(audioBuffer);
                 outStr.write(audioBytes, 0, bufferSize);
+
+                time_count = "";
+                if (recordingOffset == 0)
+                    time_count = "5";
+                else if (recordingOffset == SAMPLE_RATE)
+                    time_count = "4";
+                else if (recordingOffset == 2*SAMPLE_RATE)
+                    time_count = "3";
+                else if (recordingOffset == 3*SAMPLE_RATE)
+                    time_count = "2";
+                else if (recordingOffset == 4*SAMPLE_RATE)
+                    time_count = "1";
+
+                if (time_count != "") {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            titleText.setText(time_count + " giây");
+                            titleText.setTextColor(Color.parseColor("#212121"));
+                        }
+                    });
+                }
+
                 if (recordingOffset + numberRead < maxLength) {
                     System.arraycopy(audioBuffer, 0, recordingBuffer, recordingOffset, numberRead);
                 } else {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            titleText.setText("Đang dự đoán...");
+                            titleText.setTextColor(Color.parseColor("#212121"));
+                        }
+                    });
                     shouldContinue = false;
+                    Log.v(LOG_TAG, "Save audio success" + filepath);
                     outStr.close();
                 }
                 recordingOffset += numberRead;
@@ -328,6 +355,15 @@ public class RecordFragment extends Fragment {
                 recordingBufferLock.unlock();
             }
         }
+
+        recorder.stop();
+        recorder.release();
+        recorder = null;
+        recordingThread = null;
+        recognitionThread = null;
+        recordingOffset = 0;
+        startRecognition();
+
     }
 
     public synchronized void startRecognition() {
@@ -392,7 +428,6 @@ public class RecordFragment extends Fragment {
                 } else {
                     titleText.setTextColor(Color.parseColor("#ff1744"));
                 }
-
                 titleText.setText(final_result);
                 startButton.setClickable(true);
                 startButton.setEnabled(true);
@@ -400,8 +435,6 @@ public class RecordFragment extends Fragment {
                 formUpload.setVisibility(View.VISIBLE);
             }
         });
-
-
 
     }
 
