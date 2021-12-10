@@ -2,6 +2,9 @@ from flask import Flask, request, jsonify
 import os
 from werkzeug.datastructures import ImmutableMultiDict
 
+# Convert pcm to wav
+# ffmpeg -f s16le -ar 8k -i record.pcm file.wav
+
 UPLOAD_DIR = 'uploads'
 
 if not os.path.exists(UPLOAD_DIR):

@@ -3,7 +3,9 @@ package covid19.detection;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
 import android.media.AudioFormat;
+import android.media.AudioManager;
 import android.media.AudioRecord;
+import android.media.AudioTrack;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -44,6 +46,7 @@ import static android.media.AudioRecord.READ_BLOCKING;
 import android.app.ProgressDialog;
 import android.widget.Toast;
 
+import covid19.detection.mfcc.MFCC;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -59,6 +62,7 @@ public class RecordFragment extends Fragment {
     private TextView titleText;
     private LinearLayout formUpload;
     private Button uploadButton;
+    private Button playButton;
     private RadioGroup radioGroup;
     private String testType = "";
     private Thread recordingThread;
@@ -74,7 +78,7 @@ public class RecordFragment extends Fragment {
     private String time_count = "";
 
     // Working variables.
-    float[] recordingBuffer = new float[RECORDING_LENGTH];
+    short[] recordingBuffer = new short[RECORDING_LENGTH];
     int recordingOffset = 0;
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
@@ -95,6 +99,7 @@ public class RecordFragment extends Fragment {
                         startButton.setClickable(false);
                         startButton.setEnabled(false);
                         startButton.setImageResource(R.drawable.disable_btn);
+                        formUpload.setVisibility(View.INVISIBLE);
                         startRecording();
                     }
                 });
@@ -107,6 +112,16 @@ public class RecordFragment extends Fragment {
                         uploadFile();
                     }
                 });
+
+        playButton = (Button) view.findViewById(R.id.play_record_audio);
+        playButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        playAudio();
+                    }
+                });
+
 
         titleText = (TextView) view.findViewById(R.id.titleView);
         titleText.setTextColor(Color.parseColor("#212121"));
@@ -136,6 +151,39 @@ public class RecordFragment extends Fragment {
         }
 
         return view;
+    }
+
+    private void playAudio() {
+        String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.pcm";
+        //Reading the file..
+        byte[] byteData = null;
+        File file = null;
+        file = new File(sourceFileUri); // for ex. path= "/sdcard/samplesound.pcm" or "/sdcard/samplesound.wav"
+        byteData = new byte[(int) file.length()];
+        FileInputStream in = null;
+        try {
+            in = new FileInputStream( file );
+            in.read( byteData );
+            in.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int intSize = android.media.AudioTrack.getMinBufferSize(SAMPLE_RATE,
+                AudioFormat.CHANNEL_OUT_MONO,
+                AudioFormat.ENCODING_PCM_16BIT);
+        AudioTrack at = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE,
+                AudioFormat.CHANNEL_OUT_MONO,
+                AudioFormat.ENCODING_PCM_16BIT, intSize, AudioTrack.MODE_STREAM);
+        if (at!=null) {
+            at.play();
+            at.write(byteData, 0, byteData.length);
+            at.stop();
+            at.release();
+        }
+        else
+            Log.d("TCAudio", "audio track is not initialised ");
     }
 
     private void uploadFile() {
@@ -204,21 +252,35 @@ public class RecordFragment extends Fragment {
         recordingThread.start();
     }
 
+    private byte[] short2byte(short[] sData) {
+        int shortArrsize = sData.length;
+        byte[] bytes = new byte[shortArrsize * 2];
+
+        for (int i = 0; i < shortArrsize; i++) {
+            bytes[i * 2] = (byte) (sData[i] & 0x00FF);
+            bytes[(i * 2) + 1] = (byte) (sData[i] >> 8);
+            sData[i] = 0;
+        }
+        return bytes;
+    }
+
     private void record() {
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
         // Estimate the buffer size we'll need for this device.
         int bufferSize =
-                AudioRecord.getMinBufferSize(SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_FLOAT);
+                AudioRecord.getMinBufferSize(SAMPLE_RATE,
+                        AudioFormat.CHANNEL_IN_MONO,
+                        AudioFormat.ENCODING_PCM_16BIT);
         if (bufferSize == AudioRecord.ERROR || bufferSize == AudioRecord.ERROR_BAD_VALUE) {
             bufferSize = SAMPLE_RATE * 2;
         }
-        float[] audioBuffer = new float[bufferSize / 2];
+        short[] audioBuffer = new short[bufferSize / 2];
 
         recorder = new AudioRecord(
                         MediaRecorder.AudioSource.DEFAULT,
                         SAMPLE_RATE,
                         AudioFormat.CHANNEL_IN_MONO,
-                        AudioFormat.ENCODING_PCM_FLOAT,
+                        AudioFormat.ENCODING_PCM_16BIT,
                         bufferSize);
 
         if (recorder.getState() != AudioRecord.STATE_INITIALIZED) {
@@ -243,9 +305,15 @@ public class RecordFragment extends Fragment {
             int maxLength = recordingBuffer.length;
             recordingBufferLock.lock();
             try {
-                byte[] audioBytes = new byte[Float.BYTES * audioBuffer.length];
-                ByteBuffer.wrap(audioBytes).asFloatBuffer().put(audioBuffer);
-                outStr.write(audioBytes, 0, bufferSize);
+//                byte[] audioBytes = new byte[Float.BYTES * audioBuffer.length];
+////                ByteBuffer.wrap(audioBytes).asFloatBuffer().put(audioBuffer);
+//                outStr.write(audioBytes, 0, bufferSize);
+
+
+
+                byte bData[] = short2byte(audioBuffer);
+                outStr.write(bData, 0, bufferSize);
+
 
                 time_count = "";
                 if (recordingOffset == 0)
@@ -321,7 +389,9 @@ public class RecordFragment extends Fragment {
     private void recognize() {
         Log.v(LOG_TAG, "Start recognition");
 
-        float[] inputBuffer = new float[RECORDING_LENGTH];
+        short[] inputBuffer = new short[RECORDING_LENGTH];
+        double[] doubleInputBuffer = new double[RECORDING_LENGTH];
+        float[] floatInputBuffer = new float[RECORDING_LENGTH];
         JLibrosa jLibrosa = new JLibrosa();
 
         recordingBufferLock.lock();
@@ -332,7 +402,19 @@ public class RecordFragment extends Fragment {
             recordingBufferLock.unlock();
         }
 
-        float[][] mfccValues = jLibrosa.generateMFCCFeatures(inputBuffer, SAMPLE_RATE, 96, 4096, 512, 512);
+//        // We need to feed in float values between -1.0 and 1.0, so divide the
+//        // signed 16-bit inputs.
+//        for (int i = 0; i < RECORDING_LENGTH; ++i) {
+//            doubleInputBuffer[i] = inputBuffer[i] / 32767.0;
+//        }
+//        //MFCC java library.
+//        MFCC mfccConvert = new MFCC();
+//        float[] floatValues = mfccConvert.process(doubleInputBuffer, 96, 96);
+
+        for (int i = 0; i < RECORDING_LENGTH; ++i) {
+            floatInputBuffer[i] = (float)inputBuffer[i];
+        }
+        float[][] mfccValues = jLibrosa.generateMFCCFeatures(floatInputBuffer, SAMPLE_RATE, 96, 4096, 512, 512);
         float[] floatValues = new float[96 * 96 * 1];
         int count = 0;
         for(int i = 0; i< mfccValues.length; ++i){
@@ -341,6 +423,9 @@ public class RecordFragment extends Fragment {
                 count = count + 1;
             }
         }
+
+        System.out.println(floatValues);
+
 
         int[] inputShape = new int[]{96, 96, 1};
         TensorBuffer tensorBuffer = TensorBuffer.createFixedSize(inputShape, DataType.FLOAT32);
