@@ -50,6 +50,7 @@
 
             <RadioGroup
                 android:id="@+id/radioGroup"
+                android:checkedButton="@+id/radioButton_pcr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -79,14 +80,13 @@
                 android:layout_gravity="center"
                 android:text="Gửi" />
 
-
-            <Button
-                android:id="@+id/play_record_audio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_gravity="center"
-                android:text="Nghe lại tiếng ho" />
+<!--            <Button-->
+<!--                android:id="@+id/play_record_audio"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="24dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:text="Nghe lại tiếng ho" />-->
         </LinearLayout>
 
     </LinearLayout>

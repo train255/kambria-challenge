@@ -8,8 +8,6 @@ import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -30,7 +27,6 @@ import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -38,8 +34,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
@@ -47,12 +41,10 @@ import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static android.media.AudioRecord.READ_BLOCKING;
 import android.app.ProgressDialog;
 import android.widget.Toast;
 
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,7 +60,7 @@ public class RecordFragment extends Fragment {
     private TextView titleText;
     private LinearLayout formUpload;
     private Button uploadButton;
-    private Button playButton;
+//    private Button playButton;
     private RadioGroup radioGroup;
     private String testType = "";
     private Thread recordingThread;
@@ -84,7 +76,6 @@ public class RecordFragment extends Fragment {
     private String time_count = "";
 
     // Working variables.
-    short[] recordingBuffer = new short[RECORDING_LENGTH];
     int recordingOffset = 0;
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
@@ -115,18 +106,19 @@ public class RecordFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        progressDialog.show();
                         uploadFile();
                     }
                 });
 
-        playButton = (Button) view.findViewById(R.id.play_record_audio);
-        playButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        playAudio();
-                    }
-                });
+//        playButton = (Button) view.findViewById(R.id.play_record_audio);
+//        playButton.setOnClickListener(
+//                new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        playAudio();
+//                    }
+//                });
 
 
         titleText = (TextView) view.findViewById(R.id.titleView);
@@ -159,42 +151,41 @@ public class RecordFragment extends Fragment {
         return view;
     }
 
-    private void playAudio() {
-        String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.wav";
-        //Reading the file..
-        byte[] byteData = null;
-        File file = null;
-        file = new File(sourceFileUri); // for ex. path= "/sdcard/samplesound.pcm" or "/sdcard/samplesound.wav"
-        byteData = new byte[(int) file.length()];
-        FileInputStream in = null;
-        try {
-            in = new FileInputStream( file );
-            in.read( byteData );
-            in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        int intSize = android.media.AudioTrack.getMinBufferSize(SAMPLE_RATE,
-                AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_16BIT);
-        AudioTrack at = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE,
-                AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_16BIT, intSize, AudioTrack.MODE_STREAM);
-        if (at!=null) {
-            at.play();
-            at.write(byteData, 0, byteData.length);
-            at.stop();
-            at.release();
-        }
-        else
-            Log.d("TCAudio", "audio track is not initialised ");
-    }
+//    private void playAudio() {
+//        String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.wav";
+//        //Reading the file..
+//        byte[] byteData = null;
+//        File file = null;
+//        file = new File(sourceFileUri); // for ex. path= "/sdcard/samplesound.pcm" or "/sdcard/samplesound.wav"
+//        byteData = new byte[(int) file.length()];
+//        FileInputStream in = null;
+//        try {
+//            in = new FileInputStream( file );
+//            in.read( byteData );
+//            in.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        int intSize = android.media.AudioTrack.getMinBufferSize(SAMPLE_RATE,
+//                AudioFormat.CHANNEL_OUT_MONO,
+//                AudioFormat.ENCODING_PCM_16BIT);
+//        AudioTrack at = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE,
+//                AudioFormat.CHANNEL_OUT_MONO,
+//                AudioFormat.ENCODING_PCM_16BIT, intSize, AudioTrack.MODE_STREAM);
+//        if (at!=null) {
+//            at.play();
+//            at.write(byteData, 0, byteData.length);
+//            at.stop();
+//            at.release();
+//        }
+//        else
+//            Log.d("TCAudio", "audio track is not initialised ");
+//    }
 
     private void uploadFile() {
         String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.wav";
-        progressDialog.show();
 
         // Map is used to multipart the file using okhttp3.RequestBody
         File file = new File(sourceFileUri);
@@ -404,20 +395,13 @@ public class RecordFragment extends Fragment {
             e.printStackTrace();
         }
 
-        // Avoiding loop allocations
-        byte[] buffer = new byte[bufferSize / 2];
-
         while (shouldContinue) {
             int numberRead = recorder.read(audioBuffer, 0, audioBuffer.length);
-            int maxLength = recordingBuffer.length;
+            int maxLength = RECORDING_LENGTH;
             recordingBufferLock.lock();
             try {
-
-
                 byte bData[] = short2byte(audioBuffer);
                 outStr.write(bData, 0, bufferSize);
-
-
 
                 time_count = "";
                 if (recordingOffset == 0)
@@ -441,10 +425,7 @@ public class RecordFragment extends Fragment {
                     });
                 }
 
-                if (recordingOffset + numberRead < maxLength) {
-                    System.arraycopy(audioBuffer, 0, recordingBuffer, recordingOffset, numberRead);
-//                    outStr.write(bData, 0, numberRead);
-                } else {
+                if (recordingOffset + numberRead >= maxLength) {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -496,9 +477,6 @@ public class RecordFragment extends Fragment {
     private void recognize() {
         Log.v(LOG_TAG, "Start recognition");
 
-        short[] inputBuffer = new short[RECORDING_LENGTH];
-        double[] doubleInputBuffer = new double[RECORDING_LENGTH];
-        float[] floatInputBuffer = new float[RECORDING_LENGTH];
         float[] audioFeatureValues = new float[RECORDING_LENGTH];
         JLibrosa jLibrosa = new JLibrosa();
 
@@ -513,26 +491,6 @@ public class RecordFragment extends Fragment {
             e.printStackTrace();
         }
 
-//        recordingBufferLock.lock();
-//        try {
-//            int maxLength = recordingBuffer.length;
-//            System.arraycopy(recordingBuffer, 0, inputBuffer, 0, maxLength);
-//        } finally {
-//            recordingBufferLock.unlock();
-//        }
-
-//        // We need to feed in float values between -1.0 and 1.0, so divide the
-//        // signed 16-bit inputs.
-//        for (int i = 0; i < RECORDING_LENGTH; ++i) {
-//            doubleInputBuffer[i] = inputBuffer[i] / 32767.0;
-//        }
-//        //MFCC java library.
-//        MFCC mfccConvert = new MFCC();
-//        float[] floatValues = mfccConvert.process(doubleInputBuffer, 96, 96);
-
-//        for (int i = 0; i < RECORDING_LENGTH; ++i) {
-//            floatInputBuffer[i] = (float)inputBuffer[i];
-//        }
         float[][] mfccValues = jLibrosa.generateMFCCFeatures(audioFeatureValues, SAMPLE_RATE, 96, 4096, 512, 512);
         float[] floatValues = new float[96 * 96 * 1];
         int count = 0;
