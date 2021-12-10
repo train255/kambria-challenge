@@ -23,6 +23,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.jlibrosa.audio.JLibrosa;
+import com.jlibrosa.audio.exception.FileFormatNotSupportedException;
+import com.jlibrosa.audio.wavFile.WavFileException;
 
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.Interpreter;
@@ -34,9 +36,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
@@ -46,7 +51,6 @@ import static android.media.AudioRecord.READ_BLOCKING;
 import android.app.ProgressDialog;
 import android.widget.Toast;
 
-import covid19.detection.mfcc.MFCC;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -57,6 +61,8 @@ import retrofit2.Response;
 public class RecordFragment extends Fragment {
     private static final int SAMPLE_RATE = 8000;
     private static final int SAMPLE_DURATION_MS = 5000;
+    private static final int CHANNEL_MASK = AudioFormat.CHANNEL_IN_MONO;
+    private static final int ENCODING = AudioFormat.ENCODING_PCM_16BIT;
     private static final int RECORDING_LENGTH = (int) (SAMPLE_RATE * SAMPLE_DURATION_MS / 1000);
     private ImageButton startButton;
     private TextView titleText;
@@ -154,7 +160,7 @@ public class RecordFragment extends Fragment {
     }
 
     private void playAudio() {
-        String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.pcm";
+        String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.wav";
         //Reading the file..
         byte[] byteData = null;
         File file = null;
@@ -187,7 +193,7 @@ public class RecordFragment extends Fragment {
     }
 
     private void uploadFile() {
-        String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.pcm";
+        String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.wav";
         progressDialog.show();
 
         // Map is used to multipart the file using okhttp3.RequestBody
@@ -264,13 +270,108 @@ public class RecordFragment extends Fragment {
         return bytes;
     }
 
+    private static void writeWavHeader(OutputStream out, int channelMask, int sampleRate, int encoding) throws IOException {
+        short channels;
+        switch (channelMask) {
+            case AudioFormat.CHANNEL_IN_MONO:
+                channels = 1;
+                break;
+            case AudioFormat.CHANNEL_IN_STEREO:
+                channels = 2;
+                break;
+            default:
+                throw new IllegalArgumentException("Unacceptable channel mask");
+        }
+
+        short bitDepth;
+        switch (encoding) {
+            case AudioFormat.ENCODING_PCM_8BIT:
+                bitDepth = 8;
+                break;
+            case AudioFormat.ENCODING_PCM_16BIT:
+                bitDepth = 16;
+                break;
+            case AudioFormat.ENCODING_PCM_FLOAT:
+                bitDepth = 32;
+                break;
+            default:
+                throw new IllegalArgumentException("Unacceptable encoding");
+        }
+
+        // Convert the multi-byte integers to raw bytes in little endian format as required by the spec
+        byte[] littleBytes = ByteBuffer
+                .allocate(14)
+                .order(ByteOrder.LITTLE_ENDIAN)
+                .putShort(channels)
+                .putInt(sampleRate)
+                .putInt(sampleRate * channels * (bitDepth / 8))
+                .putShort((short) (channels * (bitDepth / 8)))
+                .putShort(bitDepth)
+                .array();
+
+        // Not necessarily the best, but it's very easy to visualize this way
+        out.write(new byte[]{
+                // RIFF header
+                'R', 'I', 'F', 'F', // ChunkID
+                0, 0, 0, 0, // ChunkSize (must be updated later)
+                'W', 'A', 'V', 'E', // Format
+                // fmt subchunk
+                'f', 'm', 't', ' ', // Subchunk1ID
+                16, 0, 0, 0, // Subchunk1Size
+                1, 0, // AudioFormat
+                littleBytes[0], littleBytes[1], // NumChannels
+                littleBytes[2], littleBytes[3], littleBytes[4], littleBytes[5], // SampleRate
+                littleBytes[6], littleBytes[7], littleBytes[8], littleBytes[9], // ByteRate
+                littleBytes[10], littleBytes[11], // BlockAlign
+                littleBytes[12], littleBytes[13], // BitsPerSample
+                // data subchunk
+                'd', 'a', 't', 'a', // Subchunk2ID
+                0, 0, 0, 0, // Subchunk2Size (must be updated later)
+        });
+    }
+
+    private static void updateWavHeader(File wav) throws IOException {
+        byte[] sizes = ByteBuffer
+                .allocate(8)
+                .order(ByteOrder.LITTLE_ENDIAN)
+                // There are probably a bunch of different/better ways to calculate
+                // these two given your circumstances. Cast should be safe since if the WAV is
+                // > 4 GB we've already made a terrible mistake.
+                .putInt((int) (wav.length() - 8)) // ChunkSize
+                .putInt((int) (wav.length() - 44)) // Subchunk2Size
+                .array();
+
+        RandomAccessFile accessWave = null;
+        //noinspection CaughtExceptionImmediatelyRethrown
+        try {
+            accessWave = new RandomAccessFile(wav, "rw");
+            // ChunkSize
+            accessWave.seek(4);
+            accessWave.write(sizes, 0, 4);
+
+            // Subchunk2Size
+            accessWave.seek(40);
+            accessWave.write(sizes, 4, 4);
+        } catch (IOException ex) {
+            // Rethrow but we still close accessWave in our finally
+            throw ex;
+        } finally {
+            if (accessWave != null) {
+                try {
+                    accessWave.close();
+                } catch (IOException ex) {
+                    //
+                }
+            }
+        }
+    }
+
     private void record() {
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
         // Estimate the buffer size we'll need for this device.
-        int bufferSize =
-                AudioRecord.getMinBufferSize(SAMPLE_RATE,
-                        AudioFormat.CHANNEL_IN_MONO,
-                        AudioFormat.ENCODING_PCM_16BIT);
+        int bufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE,
+                        CHANNEL_MASK,
+                        ENCODING);
         if (bufferSize == AudioRecord.ERROR || bufferSize == AudioRecord.ERROR_BAD_VALUE) {
             bufferSize = SAMPLE_RATE * 2;
         }
@@ -279,8 +380,8 @@ public class RecordFragment extends Fragment {
         recorder = new AudioRecord(
                         MediaRecorder.AudioSource.DEFAULT,
                         SAMPLE_RATE,
-                        AudioFormat.CHANNEL_IN_MONO,
-                        AudioFormat.ENCODING_PCM_16BIT,
+                        CHANNEL_MASK,
+                        ENCODING,
                         bufferSize);
 
         if (recorder.getState() != AudioRecord.STATE_INITIALIZED) {
@@ -291,28 +392,31 @@ public class RecordFragment extends Fragment {
         recorder.startRecording();
         Log.v(LOG_TAG, "Start recording");
 
-        String filepath = getContext().getCacheDir().getAbsolutePath();
+        String filepath = getContext().getCacheDir().getAbsolutePath()+"/record.wav";
         Log.v(LOG_TAG, filepath);
         FileOutputStream outStr = null;
         try {
-            outStr = new FileOutputStream(filepath+"/record.pcm");
+            outStr = new FileOutputStream(filepath);
+            writeWavHeader(outStr, CHANNEL_MASK, SAMPLE_RATE, ENCODING);
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
+        // Avoiding loop allocations
+        byte[] buffer = new byte[bufferSize / 2];
+
         while (shouldContinue) {
-            int numberRead = recorder.read(audioBuffer, 0, audioBuffer.length, READ_BLOCKING);
+            int numberRead = recorder.read(audioBuffer, 0, audioBuffer.length);
             int maxLength = recordingBuffer.length;
             recordingBufferLock.lock();
             try {
-//                byte[] audioBytes = new byte[Float.BYTES * audioBuffer.length];
-////                ByteBuffer.wrap(audioBytes).asFloatBuffer().put(audioBuffer);
-//                outStr.write(audioBytes, 0, bufferSize);
-
 
 
                 byte bData[] = short2byte(audioBuffer);
                 outStr.write(bData, 0, bufferSize);
+
 
 
                 time_count = "";
@@ -339,6 +443,7 @@ public class RecordFragment extends Fragment {
 
                 if (recordingOffset + numberRead < maxLength) {
                     System.arraycopy(audioBuffer, 0, recordingBuffer, recordingOffset, numberRead);
+//                    outStr.write(bData, 0, numberRead);
                 } else {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -350,6 +455,8 @@ public class RecordFragment extends Fragment {
                     shouldContinue = false;
                     Log.v(LOG_TAG, "Save audio success " + filepath);
                     outStr.close();
+                    File wavFile = new File(filepath);
+                    updateWavHeader(wavFile);
                 }
                 recordingOffset += numberRead;
             } catch (IOException e) {
@@ -392,15 +499,27 @@ public class RecordFragment extends Fragment {
         short[] inputBuffer = new short[RECORDING_LENGTH];
         double[] doubleInputBuffer = new double[RECORDING_LENGTH];
         float[] floatInputBuffer = new float[RECORDING_LENGTH];
+        float[] audioFeatureValues = new float[RECORDING_LENGTH];
         JLibrosa jLibrosa = new JLibrosa();
 
-        recordingBufferLock.lock();
+        String audioFilePath = getContext().getCacheDir().getAbsolutePath() + "/record.wav";
         try {
-            int maxLength = recordingBuffer.length;
-            System.arraycopy(recordingBuffer, 0, inputBuffer, 0, maxLength);
-        } finally {
-            recordingBufferLock.unlock();
+            audioFeatureValues = jLibrosa.loadAndRead(audioFilePath, SAMPLE_RATE, 5);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (WavFileException e) {
+            e.printStackTrace();
+        } catch (FileFormatNotSupportedException e) {
+            e.printStackTrace();
         }
+
+//        recordingBufferLock.lock();
+//        try {
+//            int maxLength = recordingBuffer.length;
+//            System.arraycopy(recordingBuffer, 0, inputBuffer, 0, maxLength);
+//        } finally {
+//            recordingBufferLock.unlock();
+//        }
 
 //        // We need to feed in float values between -1.0 and 1.0, so divide the
 //        // signed 16-bit inputs.
@@ -411,10 +530,10 @@ public class RecordFragment extends Fragment {
 //        MFCC mfccConvert = new MFCC();
 //        float[] floatValues = mfccConvert.process(doubleInputBuffer, 96, 96);
 
-        for (int i = 0; i < RECORDING_LENGTH; ++i) {
-            floatInputBuffer[i] = (float)inputBuffer[i];
-        }
-        float[][] mfccValues = jLibrosa.generateMFCCFeatures(floatInputBuffer, SAMPLE_RATE, 96, 4096, 512, 512);
+//        for (int i = 0; i < RECORDING_LENGTH; ++i) {
+//            floatInputBuffer[i] = (float)inputBuffer[i];
+//        }
+        float[][] mfccValues = jLibrosa.generateMFCCFeatures(audioFeatureValues, SAMPLE_RATE, 96, 4096, 512, 512);
         float[] floatValues = new float[96 * 96 * 1];
         int count = 0;
         for(int i = 0; i< mfccValues.length; ++i){
@@ -423,8 +542,6 @@ public class RecordFragment extends Fragment {
                 count = count + 1;
             }
         }
-
-        System.out.println(floatValues);
 
 
         int[] inputShape = new int[]{96, 96, 1};
