@@ -41,6 +41,15 @@ import java.text.DecimalFormat;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static android.media.AudioRecord.READ_BLOCKING;
+import android.app.ProgressDialog;
+import android.widget.Toast;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RecordFragment extends Fragment {
     private static final int SAMPLE_RATE = 8000;
@@ -58,6 +67,7 @@ public class RecordFragment extends Fragment {
     boolean shouldContinue = true;
     private final ReentrantLock recordingBufferLock = new ReentrantLock();
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private ProgressDialog progressDialog;
 
     private Interpreter interpreter;
     private AudioRecord recorder = null;
@@ -73,6 +83,9 @@ public class RecordFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_record, container, false);
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Uploading...");
 
         startButton = (ImageButton) view.findViewById(R.id.start);
         startButton.setOnClickListener(
@@ -91,7 +104,7 @@ public class RecordFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        uploadFile(view);
+                        uploadFile();
                     }
                 });
 
@@ -125,118 +138,41 @@ public class RecordFragment extends Fragment {
         return view;
     }
 
-    private String uploadFile(View view) {
-        int serverResponseCode = 0;
-        try {
-            String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.pcm";;
+    private void uploadFile() {
+        String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.pcm";
+        progressDialog.show();
 
-            HttpURLConnection conn = null;
-            DataOutputStream dos = null;
-            String lineEnd = "\r\n";
-            String twoHyphens = "--";
-            String boundary = "*****";
-            int bytesRead, bytesAvailable, bufferSize;
-            byte[] buffer;
-            int maxBufferSize = 1 * 1024 * 1024;
-            File sourceFile = new File(sourceFileUri);
+        // Map is used to multipart the file using okhttp3.RequestBody
+        File file = new File(sourceFileUri);
 
-            if (sourceFile.isFile()) {
+        // Parsing any Media type file
+        RequestBody fbody = RequestBody.create(MediaType.parse("audio/*"), file);
+        RequestBody test_type = RequestBody.create(MediaType.parse("text/plain"), testType);
 
-                try {
-                    String upLoadServerUri = "https://c9b6-2402-800-619d-7dc5-00-3.ngrok.io/uploadAudio";
-
-                    // open a URL connection to the Servlet
-                    FileInputStream fileInputStream = new FileInputStream(sourceFile);
-                    URL url = new URL(upLoadServerUri);
-
-                    // Open a HTTP connection to the URL
-                    conn = (HttpURLConnection) url.openConnection();
-                    conn.setDoInput(true); // Allow Inputs
-                    conn.setDoOutput(true); // Allow Outputs
-                    conn.setUseCaches(false); // Don't use a Cached Copy
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Connection", "Keep-Alive");
-                    conn.setRequestProperty("ENCTYPE",
-                            "multipart/form-data");
-                    conn.setRequestProperty("Content-Type",
-                            "multipart/form-data;boundary=" + boundary);
-                    conn.setRequestProperty("audio", sourceFileUri);
-
-                    System.out.println(testType);
-
-                    conn.setRequestProperty("test_id", "select_" + testType);
-
-                    dos = new DataOutputStream(conn.getOutputStream());
-
-                    dos.writeBytes(twoHyphens + boundary + lineEnd);
-                    dos.writeBytes("Content-Disposition: form-data; name=\"audio\";filename=\""
-                            + sourceFileUri + "\"" + lineEnd);
-
-                    dos.writeBytes(lineEnd);
-
-                    // create a buffer of maximum size
-                    bytesAvailable = fileInputStream.available();
-
-                    bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                    buffer = new byte[bufferSize];
-
-                    // read file and write it into form...
-                    bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-
-                    while (bytesRead > 0) {
-
-                        dos.write(buffer, 0, bufferSize);
-                        bytesAvailable = fileInputStream.available();
-                        bufferSize = Math
-                                .min(bytesAvailable, maxBufferSize);
-                        bytesRead = fileInputStream.read(buffer, 0,
-                                bufferSize);
-
+        ApiConfig getResponse = AppConfig.getRetrofit().create(ApiConfig.class);
+        Call<ServerResponse> call = getResponse.uploadFile(fbody, test_type);
+        call.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                ServerResponse serverResponse = response.body();
+                if (serverResponse != null) {
+                    if (serverResponse.getSuccess()) {
+                        Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
-                    // send multipart form data necesssary after file
-                    // data...
-                    dos.writeBytes(lineEnd);
-                    dos.writeBytes(twoHyphens + boundary + twoHyphens
-                            + lineEnd);
-
-                    // Responses from the server (code and message)
-                    serverResponseCode = conn.getResponseCode();
-                    String serverResponseMessage = conn
-                            .getResponseMessage();
-
-                    if (serverResponseCode == 200) {
-
-                        // messageText.setText(msg);
-                        //Toast.makeText(ctx, "File Upload Complete.",
-                        //      Toast.LENGTH_SHORT).show();
-
-                        // recursiveDelete(mDirectory1);
-
-                    }
-
-                    // close the streams //
-                    fileInputStream.close();
-                    dos.flush();
-                    dos.close();
-
-                } catch (Exception e) {
-
-                    // dialog.dismiss();
-                    e.printStackTrace();
-
+                } else {
+                    assert serverResponse != null;
+                    Log.v("Response", serverResponse.toString());
                 }
-                // dialog.dismiss();
+                progressDialog.dismiss();
+            }
 
-            } // End else block
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
 
-
-        } catch (Exception ex) {
-            // dialog.dismiss();
-
-            ex.printStackTrace();
-        }
-        return "Executed";
+            }
+        });
     }
 
     private MappedByteBuffer loadModelFile() throws IOException
@@ -292,7 +228,7 @@ public class RecordFragment extends Fragment {
 
         recorder.startRecording();
         Log.v(LOG_TAG, "Start recording");
-        
+
         String filepath = getContext().getCacheDir().getAbsolutePath();
         Log.v(LOG_TAG, filepath);
         FileOutputStream outStr = null;
@@ -344,7 +280,7 @@ public class RecordFragment extends Fragment {
                         }
                     });
                     shouldContinue = false;
-                    Log.v(LOG_TAG, "Save audio success" + filepath);
+                    Log.v(LOG_TAG, "Save audio success " + filepath);
                     outStr.close();
                 }
                 recordingOffset += numberRead;
