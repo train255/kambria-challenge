@@ -22,8 +22,12 @@ public class Main {
 
 	public static void main(String[] args) throws IOException, WavFileException, FileFormatNotSupportedException {
 		String audioDir = "audioFiles";
+		String featuresDir = "mfcc_features";
 		if (args.length > 0) {
 			audioDir = args[0];
+		}
+		if (args.length > 1) {
+			featuresDir = args[1];
 		}
 		File folder = new File(audioDir);
 		File[] listOfFiles = folder.listFiles();
@@ -60,7 +64,7 @@ public class Main {
 				System.out.println(
 						"Size of MFCC Feature Values: (" + mfccValues.length + " , " + mfccValues[0].length + " )");
 
-				String savedGameFile = "mfcc_features/" + fileNameWithOutExt + ".txt";
+				String featurePath = featuresDir + "/" + fileNameWithOutExt + ".txt";
 				StringBuilder builder = new StringBuilder();
 				for (int i = 0; i < mfccValues.length; i++)// for each row
 				{
@@ -72,7 +76,7 @@ public class Main {
 					}
 					builder.append("n");// append new line at the end of the row
 				}
-				BufferedWriter writer = new BufferedWriter(new FileWriter(savedGameFile));
+				BufferedWriter writer = new BufferedWriter(new FileWriter(featurePath));
 				writer.write(builder.toString());// save the string representation of the mfccValues
 				writer.close();
 			}
