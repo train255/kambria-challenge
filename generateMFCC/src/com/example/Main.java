@@ -23,11 +23,15 @@ public class Main {
 	public static void main(String[] args) throws IOException, WavFileException, FileFormatNotSupportedException {
 		String audioDir = "audioFiles";
 		String featuresDir = "mfcc_features";
+		int n_mfcc = 96; 
 		if (args.length > 0) {
 			audioDir = args[0];
 		}
 		if (args.length > 1) {
 			featuresDir = args[1];
+		}
+		if (args.length > 2) {
+			n_mfcc = Integer.parseInt(args[2]);
 		}
 		File folder = new File(audioDir);
 		File[] listOfFiles = folder.listFiles();
@@ -53,7 +57,7 @@ public class Main {
 				 * To read the MFCC values of an audio file
 				 * equivalent to librosa.feature.mfcc(x, sr, n_mfcc=40) in python
 				 */
-				int n_mfcc = 96;
+				
 				int n_fft = 4096;
 				int hop_length = 512;
 				int n_mels = 512;
