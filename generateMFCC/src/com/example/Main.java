@@ -23,7 +23,8 @@ public class Main {
 	public static void main(String[] args) throws IOException, WavFileException, FileFormatNotSupportedException {
 		String audioDir = "audioFiles";
 		String featuresDir = "mfcc_features";
-		int n_mfcc = 96; 
+		int sample_rate = 8000;
+		int n_mfcc = 96;
 		if (args.length > 0) {
 			audioDir = args[0];
 		}
@@ -31,7 +32,10 @@ public class Main {
 			featuresDir = args[1];
 		}
 		if (args.length > 2) {
-			n_mfcc = Integer.parseInt(args[2]);
+			sample_rate = Integer.parseInt(args[2]);
+		}
+		if (args.length > 3) {
+			n_mfcc = Integer.parseInt(args[3]);
 		}
 		File folder = new File(audioDir);
 		File[] listOfFiles = folder.listFiles();
@@ -62,7 +66,7 @@ public class Main {
 				int hop_length = 512;
 				int n_mels = 512;
 				float[][] mfccValues = jLibrosa.generateMFCCFeatures(
-						audioFeatureValues, 8000, n_mfcc, n_fft, n_mels, hop_length);
+						audioFeatureValues, sample_rate, n_mfcc, n_fft, n_mels, hop_length);
 
 				System.out.println(".......");
 				System.out.println(
