@@ -79,7 +79,7 @@ public class Main {
 					for (int j = 0; j < mfccValues[i].length; j++)// for each column
 					{
 						builder.append(mfccValues[i][j] + "");// append to the output string
-						if (j < mfccValues.length - 1)// if this is not the last row element
+						if (j < mfccValues[i].length - 1)// if this is not the last row element
 							builder.append(",");// then add comma (if you don't like commas you can use spaces)
 					}
 					builder.append("n");// append new line at the end of the row
