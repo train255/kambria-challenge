@@ -11,6 +11,7 @@ import retrofit2.http.Part;
 public interface ApiConfig {
     @Multipart
     @POST("/uploadAudio")
-    Call<ServerResponse> uploadFile(@Part("audio\"; filename=\"record.wav\" ") RequestBody file,
-                                  @Part("test_type") RequestBody fname);
+    Call<ServerResponse> uploadFile(@Part("audio\"; filename=\"record.wav\" ") RequestBody audio_file,
+                                    @Part("test_image\"; filename=\"image.png\" ") RequestBody test_image,
+                                  @Part("predict_result") RequestBody predict_result);
 }

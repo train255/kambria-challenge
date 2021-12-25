@@ -1,22 +1,23 @@
 package covid19.detection;
 
+import covid19.detection.FileUtils;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
 import android.media.AudioFormat;
-import android.media.AudioManager;
 import android.media.AudioRecord;
-import android.media.AudioTrack;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.jlibrosa.audio.JLibrosa;
@@ -50,6 +51,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 public class RecordFragment extends Fragment {
     private static final int SAMPLE_RATE = 8000;
     private static final int SAMPLE_DURATION_MS = 5000;
@@ -57,12 +60,12 @@ public class RecordFragment extends Fragment {
     private static final int ENCODING = AudioFormat.ENCODING_PCM_16BIT;
     private static final int RECORDING_LENGTH = (int) (SAMPLE_RATE * SAMPLE_DURATION_MS / 1000);
     private ImageButton startButton;
+    private ImageButton testImage;
     private TextView titleText;
     private LinearLayout formUpload;
     private Button uploadButton;
 //    private Button playButton;
-    private RadioGroup radioGroup;
-    private String testType = "";
+    private String predictResult = "";
     private Thread recordingThread;
     private Thread recognitionThread;
     boolean shouldContinueRecognition = true;
@@ -74,6 +77,10 @@ public class RecordFragment extends Fragment {
     private Interpreter interpreter;
     private AudioRecord recorder = null;
     private String time_count = "";
+
+    private Uri selectedImageUri;
+
+    int SELECT_PICTURE = 200;
 
     // Working variables.
     int recordingOffset = 0;
@@ -87,6 +94,7 @@ public class RecordFragment extends Fragment {
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Uploading...");
+        progressDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
 
         startButton = (ImageButton) view.findViewById(R.id.start);
         startButton.setOnClickListener(
@@ -107,7 +115,11 @@ public class RecordFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         progressDialog.show();
-                        uploadFile();
+                        try {
+                            uploadFile();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
 
@@ -126,20 +138,14 @@ public class RecordFragment extends Fragment {
 
         formUpload = (LinearLayout) view.findViewById(R.id.formUpload);
 
-        radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch(checkedId){
-                    case R.id.radioButton_pcr:
-                        testType = "pcr";
-                        break;
-                    case R.id.radioButton_qtest:
-                        testType = "qtest";
-                        break;
-                }
-            }
-        });
+        testImage = (ImageButton) view.findViewById(R.id.testResult);
+        testImage.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        imageChooser();
+                    }
+                });
 
         try {
             interpreter = new Interpreter(loadModelFile(),null);
@@ -149,6 +155,36 @@ public class RecordFragment extends Fragment {
         }
 
         return view;
+    }
+
+    private void imageChooser() {
+        // create an instance of the
+        // intent of the type image
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+
+        // pass the constant to compare it
+        // with the returned requestCode
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    testImage.setImageURI(selectedImageUri);
+                }
+            }
+        }
     }
 
 //    private void playAudio() {
@@ -184,18 +220,22 @@ public class RecordFragment extends Fragment {
 //            Log.d("TCAudio", "audio track is not initialised ");
 //    }
 
-    private void uploadFile() {
+
+    private void uploadFile() throws Exception {
         String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.wav";
 
         // Map is used to multipart the file using okhttp3.RequestBody
-        File file = new File(sourceFileUri);
+        File audioFile = new File(sourceFileUri);
+        File imageFile = FileUtils.getFileFromUri(getContext(), selectedImageUri);
 
         // Parsing any Media type file
-        RequestBody fbody = RequestBody.create(MediaType.parse("audio/*"), file);
-        RequestBody test_type = RequestBody.create(MediaType.parse("text/plain"), testType);
+        RequestBody audio_body = RequestBody.create(MediaType.parse("audio/*"), audioFile);
+        RequestBody image_body = RequestBody.create(MediaType.parse("image/*"), imageFile);
+        RequestBody predict_result = RequestBody.create(MediaType.parse("text/plain"), predictResult);
 
         ApiConfig getResponse = AppConfig.getRetrofit().create(ApiConfig.class);
-        Call<ServerResponse> call = getResponse.uploadFile(fbody, test_type);
+        Call<ServerResponse> call = getResponse.uploadFile(audio_body, image_body, predict_result);
+
         call.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
@@ -433,11 +473,11 @@ public class RecordFragment extends Fragment {
                             titleText.setTextColor(Color.parseColor("#212121"));
                         }
                     });
-                    shouldContinue = false;
                     Log.v(LOG_TAG, "Save audio success " + filepath);
                     outStr.close();
                     File wavFile = new File(filepath);
                     updateWavHeader(wavFile);
+                    shouldContinue = false;
                 }
                 recordingOffset += numberRead;
             } catch (IOException e) {
@@ -494,6 +534,10 @@ public class RecordFragment extends Fragment {
         float[][] mfccValues = jLibrosa.generateMFCCFeatures(audioFeatureValues, SAMPLE_RATE, 96, 4096, 512, 512);
         float[] floatValues = new float[96 * 96 * 1];
         int count = 0;
+        System.out.println("-----Debug-----");
+        System.out.println(mfccValues.length);
+        System.out.println(mfccValues[0].length);
+        System.out.println("-----Debug-----");
         for(int i = 0; i< mfccValues.length; ++i){
             for (int j = 0; j < mfccValues[i].length; ++j) {
                 floatValues[count] = (float) mfccValues[i][j];
@@ -510,6 +554,7 @@ public class RecordFragment extends Fragment {
         interpreter.run(tensorBuffer.getBuffer(), output.getBuffer());
         final float[] result = output.getFloatArray();
 
+        predictResult = String.valueOf(result[0]);
         System.out.println(result[0]);
 
         getActivity().runOnUiThread(new Runnable() {

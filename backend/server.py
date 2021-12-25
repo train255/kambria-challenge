@@ -14,18 +14,38 @@ if not os.path.exists(UPLOAD_DIR):
 
 app = Flask(__name__)
 
+
+def saveFile(file, filename, subfolder):
+	dir_pth = os.path.join(UPLOAD_DIR, subfolder)
+	if not os.path.exists(dir_pth):
+		os.makedirs(dir_pth)
+	file.save(os.path.join(dir_pth, filename))
+
+def saveResult(txt, filename, subfolder):
+	dir_pth = os.path.join(UPLOAD_DIR, subfolder)
+	if not os.path.exists(dir_pth):
+		os.makedirs(dir_pth)
+	f = open(os.path.join(dir_pth, filename),"w")
+	f.write(txt)
+	f.close()
+
 @app.route('/uploadAudio',methods=['POST'])
 def saveAudioFile():
-	if request.method == 'POST' and 'audio' in request.files:
+	if request.method == 'POST':
 		data = dict(request.form)
+		print(data)
+		predict_result = data["predict_result"]
+		request_id = str(uuid.uuid4())
 
-		file = request.files['audio']
-		filename = str(uuid.uuid4()) + file.filename
-		dir_pth = os.path.join(UPLOAD_DIR, data["test_type"])
-		if not os.path.exists(dir_pth):
-			os.makedirs(dir_pth)
+		saveResult(predict_result, "result.txt", request_id)
+		audio_file = request.files['audio']
+		audio_filename =  audio_file.filename
+		saveFile(audio_file, audio_filename, request_id)
 
-		file.save(os.path.join(dir_pth, filename))
+		test_image = request.files['test_image']
+		test_image_filename = test_image.filename
+		saveFile(test_image, test_image_filename, request_id)
+
 		return jsonify(
 			success=True,
 			message="Upload success"
@@ -36,4 +56,4 @@ def saveAudioFile():
 			message="Required Field missing"
 		)
 
-app.run(port=9000) 
+app.run(port=9000,debug=True) 
