@@ -40,6 +40,10 @@ import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 import android.app.ProgressDialog;
@@ -54,8 +58,11 @@ import retrofit2.Response;
 import static android.app.Activity.RESULT_OK;
 
 public class RecordFragment extends Fragment {
-    private static final int SAMPLE_RATE = 8000;
+    private static final int SAMPLE_RATE = 16000;
     private static final int SAMPLE_DURATION_MS = 5000;
+    private static final int NUM_ROWS = 120;
+    private static final int NUM_COLUMNS = 192;
+    private static final int NUM_CHANNELS = 1;
     private static final int CHANNEL_MASK = AudioFormat.CHANNEL_IN_MONO;
     private static final int ENCODING = AudioFormat.ENCODING_PCM_16BIT;
     private static final int RECORDING_LENGTH = (int) (SAMPLE_RATE * SAMPLE_DURATION_MS / 1000);
@@ -74,7 +81,14 @@ public class RecordFragment extends Fragment {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private ProgressDialog progressDialog;
 
-    private Interpreter interpreter;
+//    private Interpreter interpreter1;
+//    private Interpreter interpreter2;
+//    private Interpreter interpreter3;
+//    private Interpreter interpreter4;
+//    private Interpreter interpreter5;
+
+    private List<Interpreter> listInterpreters = new ArrayList<Interpreter>();
+
     private AudioRecord recorder = null;
     private String time_count = "";
 
@@ -148,7 +162,9 @@ public class RecordFragment extends Fragment {
                 });
 
         try {
-            interpreter = new Interpreter(loadModelFile(),null);
+            for (int i = 1; i < 3; i++) {
+                listInterpreters.add(new Interpreter(loadModelFile(i), null));
+            }
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("NOT LOAD MODEL");
@@ -260,9 +276,11 @@ public class RecordFragment extends Fragment {
         });
     }
 
-    private MappedByteBuffer loadModelFile() throws IOException
+    private MappedByteBuffer loadModelFile(int i) throws IOException
     {
-        AssetFileDescriptor assetFileDescriptor = getContext().getAssets().openFd("mobilenetv2.tflite");
+        String idx = String.valueOf(i);
+        String model_name = "covid_detection_" + idx  + ".tflite";
+        AssetFileDescriptor assetFileDescriptor = getContext().getAssets().openFd(model_name);
 
         FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
         FileChannel fileChannel = fileInputStream.getChannel();
@@ -531,8 +549,8 @@ public class RecordFragment extends Fragment {
             e.printStackTrace();
         }
 
-        float[][] mfccValues = jLibrosa.generateMFCCFeatures(audioFeatureValues, SAMPLE_RATE, 96, 4096, 512, 512);
-        float[] floatValues = new float[96 * 96 * 1];
+        float[][] mfccValues = jLibrosa.generateMFCCFeatures(audioFeatureValues, SAMPLE_RATE, NUM_ROWS, 4096, 512, 512);
+        float[] floatValues = new float[NUM_ROWS * NUM_COLUMNS * NUM_CHANNELS];
         int count = 0;
         System.out.println("-----Debug-----");
         System.out.println(mfccValues.length);
@@ -546,24 +564,28 @@ public class RecordFragment extends Fragment {
         }
 
 
-        int[] inputShape = new int[]{96, 96, 1};
+        int[] inputShape = new int[]{NUM_ROWS, NUM_COLUMNS, NUM_CHANNELS};
         TensorBuffer tensorBuffer = TensorBuffer.createFixedSize(inputShape, DataType.FLOAT32);
         tensorBuffer.loadArray(floatValues);
         TensorBuffer output = TensorBuffer.createFixedSize(new int[]{1}, DataType.FLOAT32);
 
-        interpreter.run(tensorBuffer.getBuffer(), output.getBuffer());
-        final float[] result = output.getFloatArray();
-
-        predictResult = String.valueOf(result[0]);
-        System.out.println(result[0]);
+        float sum = 0;
+        for (int i = 0; i < 2; i++) {
+            listInterpreters.get(i).run(tensorBuffer.getBuffer(), output.getBuffer());
+            final float[] result = output.getFloatArray();
+            System.out.println(result[0]);
+            sum += result[0];
+        }
+        final float final_predict = sum / 2;
+        predictResult = String.valueOf(final_predict);
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                double percent_db = result[0] * 100.0;
+                double percent_db = final_predict * 100.0;
                 String final_result = df.format(percent_db) + "% bạn bị dương tính";
-                if (result[0] <= 0.5) {
-                    percent_db = (1 - result[0]) * 100.0;
+                if (final_predict <= 0.5) {
+                    percent_db = (1 - final_predict) * 100.0;
                     final_result = df.format(percent_db) + "% bạn âm tính";
                     titleText.setTextColor(Color.parseColor("#00e676"));
                 } else {
@@ -582,7 +604,8 @@ public class RecordFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        interpreter.close();
+        for (int i = 0; i < 2; i++) {
+            listInterpreters.get(i).close();
+        }
     }
-
 }
