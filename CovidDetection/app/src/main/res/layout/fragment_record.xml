@@ -36,7 +36,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical"
-            android:visibility="invisible">
+            android:visibility="gone">
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
@@ -76,6 +76,35 @@
 <!--                android:layout_marginTop="24dp"-->
 <!--                android:layout_gravity="center"-->
 <!--                android:text="Nghe lại tiếng ho" />-->
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/reportErrorForm"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/textErrorView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center"
+                android:text="Nếu bạn thấy đây là lỗi hãy gửi cho chúng tôi" />
+
+            <Button
+                android:id="@+id/sendErrorBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="center"
+                android:text="Gửi" />
+
         </LinearLayout>
 
     </LinearLayout>

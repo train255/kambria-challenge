@@ -14,7 +14,11 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+        mavenCentral()  // should be already there
+        maven {         // add this repo to use snapshots
+            name 'ossrh-snapshot'
+            url 'http://oss.sonatype.org/content/repositories/snapshots'
+        }
     }
 }
 

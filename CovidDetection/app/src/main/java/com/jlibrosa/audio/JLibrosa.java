@@ -276,21 +276,21 @@ public class JLibrosa {
 		
 	}
 
-//	/**
-//	 * This function calculates and return the Mean MFCC values.
-//	 *
-//	 * @param mfccValues
-//	 * @param nMFCC
-//	 * @param nFFT
-//	 * @return
-//	 */
-//	public float [] generateMeanMFCCFeatures(float[][] mfccValues, int nMFCC, int nFFT) {
-//		// code to take the mean of mfcc values across the rows such that
-//		// [nMFCC x nFFT] matrix would be converted into
-//		// [nMFCC x 1] dimension - which would act as an input to tflite model
-//
-//
-//		float [] meanMFCCValues = new float[nMFCC];
+	/**
+	 * This function calculates and return the Mean MFCC values.
+	 *
+	 * @param mfccValues
+	 * @param nMFCC
+	 * @param nFFT
+	 * @return
+	 */
+	public float [] generateMeanMFCCFeatures(float[][] mfccValues, int nMFCC, int nFFT) {
+		// code to take the mean of mfcc values across the rows such that
+		// [nMFCC x nFFT] matrix would be converted into
+		// [nMFCC x 1] dimension - which would act as an input to tflite model
+
+
+		float [] meanMFCCValues = new float[nMFCC];
 //		for (int i=0; i<mfccValues.length; i++) {
 //
 //			float [] floatArrValues = mfccValues[i];
@@ -301,18 +301,31 @@ public class JLibrosa {
 //	        float floatVal = (float)avg;
 //	        meanMFCCValues[i] = floatVal;
 //	    }
-//
-//		/*for (int p = 0; p < nMFCC; p++) {
+
+		for (int i=0; i<mfccValues.length; i++) {
+			float [] floatArrValues = mfccValues[i];
+			double[] ds = new double[floatArrValues.length];
+			double total = 0;
+			for (int j = 0; j < floatArrValues.length; ++j) {
+				ds[j] = (double)floatArrValues[j];
+				total = total + ds[j];
+			}
+			double avg = total / ds.length;
+			float floatVal = (float)avg;
+			meanMFCCValues[i] = floatVal;
+		}
+
+//		for (int p = 0; p < nMFCC; p++) {
 //			double fftValAcrossRow = 0;
 //			for (int q = 0; q < nFFT; q++) {
 //				fftValAcrossRow = fftValAcrossRow + mfccValues[p][q];
 //			}
 //			double fftMeanValAcrossRow = fftValAcrossRow / nFFT;
 //			meanMFCCValues[p] = (float) fftMeanValAcrossRow;
-//		} */
-//
-//		return meanMFCCValues;
-//	}
+//		}
+
+		return meanMFCCValues;
+	}
 
 	/**
 	 * This function calculates and returns the melspectrogram of given Audio Sample

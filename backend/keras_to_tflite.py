@@ -24,15 +24,26 @@ def create_cnn():
 	print(model.summary())
 	return model
 
-
-for i in range(1, 6):
+def convert(src, dst):
 	cnn_model = create_cnn()
-	cnn_model.load_weights("models/covid_detection_"+str(i)+".hdf5")
+	cnn_model.load_weights(src)
 
 	# Convert the model.
 	converter = tf.lite.TFLiteConverter.from_keras_model(cnn_model)
 	tflite_model = converter.convert()
 
 	# Save the model.
-	with open("models/covid_detection_"+str(i)+".tflite", 'wb') as f:
+	with open(dst, 'wb') as f:
 		f.write(tflite_model)
+
+# Convert cough detection model
+src_pth = "models/cough_detection.hdf5"
+dst_pth = "models/cough_detection.tflite"
+convert(src_pth, dst_pth)
+
+# # Convert covid detection model
+# for i in range(1, 6):
+# 	src_pth = "models/covid_detection_"+str(i)+".hdf5"
+# 	dst_pth = "models/covid_detection_"+str(i)+".tflite"
+# 	convert(src_pth, dst_pth)
+

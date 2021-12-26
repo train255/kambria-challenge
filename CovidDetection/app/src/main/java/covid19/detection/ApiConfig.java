@@ -13,5 +13,10 @@ public interface ApiConfig {
     @POST("/uploadAudio")
     Call<ServerResponse> uploadFile(@Part("audio\"; filename=\"record.wav\" ") RequestBody audio_file,
                                     @Part("test_image\"; filename=\"image.png\" ") RequestBody test_image,
-                                  @Part("predict_result") RequestBody predict_result);
+                                  @Part("predict_covid") RequestBody predict_covid);
+
+    @Multipart
+    @POST("/uploadAudio")
+    Call<ServerResponse> sendError(@Part("audio\"; filename=\"record.wav\" ") RequestBody audio_file,
+                                    @Part("predict_cough") RequestBody predict_cough);
 }

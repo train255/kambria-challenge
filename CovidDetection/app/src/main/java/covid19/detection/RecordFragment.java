@@ -26,6 +26,11 @@ import com.jlibrosa.audio.wavFile.WavFileException;
 
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.Interpreter;
+import org.tensorflow.lite.support.common.FileUtil;
+import org.tensorflow.lite.support.label.TensorLabel;
+
+import org.tensorflow.lite.support.common.TensorProcessor;
+import org.tensorflow.lite.support.common.ops.NormalizeOp;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
 import java.io.File;
@@ -37,10 +42,12 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +70,8 @@ public class RecordFragment extends Fragment {
     private static final int NUM_ROWS = 120;
     private static final int NUM_COLUMNS = 192;
     private static final int NUM_CHANNELS = 1;
+    private int[] inputShape = new int[]{1, NUM_ROWS, NUM_COLUMNS, NUM_CHANNELS};
+    private int[] outputShape = new int[]{1, 1};
     private static final int CHANNEL_MASK = AudioFormat.CHANNEL_IN_MONO;
     private static final int ENCODING = AudioFormat.ENCODING_PCM_16BIT;
     private static final int RECORDING_LENGTH = (int) (SAMPLE_RATE * SAMPLE_DURATION_MS / 1000);
@@ -70,9 +79,13 @@ public class RecordFragment extends Fragment {
     private ImageButton testImage;
     private TextView titleText;
     private LinearLayout formUpload;
+    private LinearLayout reportErrorForm;
     private Button uploadButton;
-//    private Button playButton;
-    private String predictResult = "";
+    private Button sendErrorBtn;
+
+    //    private Button playButton;
+    private String predictCovid = "";
+    private String predictCough = "";
     private Thread recordingThread;
     private Thread recognitionThread;
     boolean shouldContinueRecognition = true;
@@ -81,12 +94,8 @@ public class RecordFragment extends Fragment {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private ProgressDialog progressDialog;
 
-//    private Interpreter interpreter1;
-//    private Interpreter interpreter2;
-//    private Interpreter interpreter3;
-//    private Interpreter interpreter4;
-//    private Interpreter interpreter5;
 
+    private Interpreter coughInterpreter;
     private List<Interpreter> listInterpreters = new ArrayList<Interpreter>();
 
     private AudioRecord recorder = null;
@@ -118,7 +127,8 @@ public class RecordFragment extends Fragment {
                         startButton.setClickable(false);
                         startButton.setEnabled(false);
                         startButton.setImageResource(R.drawable.disable_btn);
-                        formUpload.setVisibility(View.INVISIBLE);
+                        formUpload.setVisibility(View.GONE);
+                        reportErrorForm.setVisibility(View.GONE);
                         startRecording();
                     }
                 });
@@ -130,7 +140,21 @@ public class RecordFragment extends Fragment {
                     public void onClick(View view) {
                         progressDialog.show();
                         try {
-                            uploadFile();
+                            uploadFile(false);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+        sendErrorBtn = (Button) view.findViewById(R.id.sendErrorBtn);
+        sendErrorBtn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        progressDialog.show();
+                        try {
+                            uploadFile(true);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -151,6 +175,7 @@ public class RecordFragment extends Fragment {
         titleText.setTextColor(Color.parseColor("#212121"));
 
         formUpload = (LinearLayout) view.findViewById(R.id.formUpload);
+        reportErrorForm = (LinearLayout) view.findViewById(R.id.reportErrorForm);
 
         testImage = (ImageButton) view.findViewById(R.id.testResult);
         testImage.setOnClickListener(
@@ -163,8 +188,11 @@ public class RecordFragment extends Fragment {
 
         try {
             for (int i = 1; i < 3; i++) {
-                listInterpreters.add(new Interpreter(loadModelFile(i), null));
+                String idx = String.valueOf(i);
+                String model_name = "covid_detection_" + idx  + ".tflite";
+                listInterpreters.add(new Interpreter(loadModelFile(model_name), null));
             }
+            coughInterpreter = new Interpreter(loadModelFile("cough_detection.tflite"), null);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("NOT LOAD MODEL");
@@ -237,49 +265,72 @@ public class RecordFragment extends Fragment {
 //    }
 
 
-    private void uploadFile() throws Exception {
+    private void uploadFile(boolean only_audio) throws Exception {
         String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.wav";
 
-        // Map is used to multipart the file using okhttp3.RequestBody
         File audioFile = new File(sourceFileUri);
-        File imageFile = FileUtils.getFileFromUri(getContext(), selectedImageUri);
-
-        // Parsing any Media type file
         RequestBody audio_body = RequestBody.create(MediaType.parse("audio/*"), audioFile);
-        RequestBody image_body = RequestBody.create(MediaType.parse("image/*"), imageFile);
-        RequestBody predict_result = RequestBody.create(MediaType.parse("text/plain"), predictResult);
-
         ApiConfig getResponse = AppConfig.getRetrofit().create(ApiConfig.class);
-        Call<ServerResponse> call = getResponse.uploadFile(audio_body, image_body, predict_result);
 
-        call.enqueue(new Callback<ServerResponse>() {
-            @Override
-            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                ServerResponse serverResponse = response.body();
-                if (serverResponse != null) {
-                    if (serverResponse.getSuccess()) {
-                        Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
+        if (only_audio) {
+            RequestBody predict_cough = RequestBody.create(MediaType.parse("text/plain"), predictCough);
+            Call<ServerResponse> call = getResponse.sendError(audio_body, predict_cough);
+
+            call.enqueue(new Callback<ServerResponse>() {
+                @Override
+                public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                    ServerResponse serverResponse = response.body();
+                    if (serverResponse != null) {
+                        if (serverResponse.getSuccess()) {
+                            Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        assert serverResponse != null;
+                        Log.v("Response", serverResponse.toString());
                     }
-                } else {
-                    assert serverResponse != null;
-                    Log.v("Response", serverResponse.toString());
+                    progressDialog.dismiss();
                 }
-                progressDialog.dismiss();
-            }
 
-            @Override
-            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                @Override
+                public void onFailure(Call<ServerResponse> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        } else {
+            File imageFile = FileUtils.getFileFromUri(getContext(), selectedImageUri);
+            RequestBody image_body = RequestBody.create(MediaType.parse("image/*"), imageFile);
+            RequestBody predict_result = RequestBody.create(MediaType.parse("text/plain"), predictCovid);
+            Call<ServerResponse> call = getResponse.uploadFile(audio_body, image_body, predict_result);
+
+            call.enqueue(new Callback<ServerResponse>() {
+                @Override
+                public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                    ServerResponse serverResponse = response.body();
+                    if (serverResponse != null) {
+                        if (serverResponse.getSuccess()) {
+                            Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        assert serverResponse != null;
+                        Log.v("Response", serverResponse.toString());
+                    }
+                    progressDialog.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<ServerResponse> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
-    private MappedByteBuffer loadModelFile(int i) throws IOException
+    private MappedByteBuffer loadModelFile(String model_name) throws IOException
     {
-        String idx = String.valueOf(i);
-        String model_name = "covid_detection_" + idx  + ".tflite";
         AssetFileDescriptor assetFileDescriptor = getContext().getAssets().openFd(model_name);
 
         FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
@@ -550,12 +601,8 @@ public class RecordFragment extends Fragment {
         }
 
         float[][] mfccValues = jLibrosa.generateMFCCFeatures(audioFeatureValues, SAMPLE_RATE, NUM_ROWS, 4096, 512, 512);
-        float[] floatValues = new float[NUM_ROWS * NUM_COLUMNS * NUM_CHANNELS];
+        final float[] floatValues = new float[NUM_ROWS * NUM_COLUMNS * NUM_CHANNELS];
         int count = 0;
-        System.out.println("-----Debug-----");
-        System.out.println(mfccValues.length);
-        System.out.println(mfccValues[0].length);
-        System.out.println("-----Debug-----");
         for(int i = 0; i< mfccValues.length; ++i){
             for (int j = 0; j < mfccValues[i].length; ++j) {
                 floatValues[count] = (float) mfccValues[i][j];
@@ -563,42 +610,57 @@ public class RecordFragment extends Fragment {
             }
         }
 
+        TensorBuffer inputCoughBuffer = TensorBuffer.createFixedSize(inputShape, DataType.FLOAT32);
+        inputCoughBuffer.loadArray(floatValues, inputShape);
+        TensorBuffer outputCoughBuffer = TensorBuffer.createFixedSize(outputShape, DataType.FLOAT32);
 
-        int[] inputShape = new int[]{NUM_ROWS, NUM_COLUMNS, NUM_CHANNELS};
-        TensorBuffer tensorBuffer = TensorBuffer.createFixedSize(inputShape, DataType.FLOAT32);
-        tensorBuffer.loadArray(floatValues);
-        TensorBuffer output = TensorBuffer.createFixedSize(new int[]{1}, DataType.FLOAT32);
+        // Check cough
+        coughInterpreter.run(inputCoughBuffer.getBuffer(), outputCoughBuffer.getBuffer());
+        final float[] cough_result = outputCoughBuffer.getFloatArray();
 
-        float sum = 0;
-        for (int i = 0; i < 2; i++) {
-            listInterpreters.get(i).run(tensorBuffer.getBuffer(), output.getBuffer());
-            final float[] result = output.getFloatArray();
-            System.out.println(result[0]);
-            sum += result[0];
-        }
-        final float final_predict = sum / 2;
-        predictResult = String.valueOf(final_predict);
-
+        Log.v(LOG_TAG, Arrays.toString(cough_result));
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                double percent_db = final_predict * 100.0;
-                String final_result = df.format(percent_db) + "% bạn bị dương tính";
-                if (final_predict <= 0.5) {
-                    percent_db = (1 - final_predict) * 100.0;
-                    final_result = df.format(percent_db) + "% bạn âm tính";
-                    titleText.setTextColor(Color.parseColor("#00e676"));
+                if (cough_result[0] < 0.5) {
+                    predictCough = String.valueOf(cough_result[0]);
+                    titleText.setText("Không nhận dạng được tiếng ho");
+                    startButton.setClickable(true);
+                    startButton.setEnabled(true);
+                    startButton.setImageResource(R.drawable.active_btn);
+                    reportErrorForm.setVisibility(View.VISIBLE);
                 } else {
-                    titleText.setTextColor(Color.parseColor("#ff1744"));
+                    float sum = 0;
+                    TensorBuffer inputCovidBuffer = TensorBuffer.createFixedSize(inputShape, DataType.FLOAT32);
+                    inputCovidBuffer.loadArray(floatValues, inputShape);
+                    TensorBuffer outputCovidBuffer = TensorBuffer.createFixedSize(outputShape, DataType.FLOAT32);
+
+                    for (int i = 0; i < 2; i++) {
+                        listInterpreters.get(i).run(inputCovidBuffer.getBuffer(), outputCovidBuffer.getBuffer());
+                        float[] result = outputCovidBuffer.getFloatArray();
+                        System.out.println(result[0]);
+                        sum += result[0];
+                    }
+                    float final_predict = sum / 2;
+                    predictCovid = String.valueOf(final_predict);
+
+                    double percent_db = final_predict * 100.0;
+                    String final_result = df.format(percent_db) + "% bạn bị dương tính";
+                    if (final_predict <= 0.5) {
+                        percent_db = (1 - final_predict) * 100.0;
+                        final_result = df.format(percent_db) + "% bạn âm tính";
+                        titleText.setTextColor(Color.parseColor("#00e676"));
+                    } else {
+                        titleText.setTextColor(Color.parseColor("#ff1744"));
+                    }
+                    titleText.setText(final_result);
+                    startButton.setClickable(true);
+                    startButton.setEnabled(true);
+                    startButton.setImageResource(R.drawable.active_btn);
+                    formUpload.setVisibility(View.VISIBLE);
                 }
-                titleText.setText(final_result);
-                startButton.setClickable(true);
-                startButton.setEnabled(true);
-                startButton.setImageResource(R.drawable.active_btn);
-                formUpload.setVisibility(View.VISIBLE);
             }
         });
-
     }
 
     @Override
@@ -607,5 +669,6 @@ public class RecordFragment extends Fragment {
         for (int i = 0; i < 2; i++) {
             listInterpreters.get(i).close();
         }
+        coughInterpreter.close();
     }
 }

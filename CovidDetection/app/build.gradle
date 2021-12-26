@@ -25,8 +25,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1' // design support Library
     compile 'org.apache.commons:commons-math3:3.6.1'
-    compile 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
-    compile 'org.tensorflow:tensorflow-lite-support:0.0.0-nightly'
+    compile 'org.tensorflow:tensorflow-lite:2.7.0'
+    compile 'org.tensorflow:tensorflow-lite-support:0.2.0'
     compile 'com.squareup.retrofit2:retrofit:2.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
 }

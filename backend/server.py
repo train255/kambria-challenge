@@ -34,17 +34,21 @@ def saveAudioFile():
 	if request.method == 'POST':
 		data = dict(request.form)
 		print(data)
-		predict_result = data["predict_result"]
 		request_id = str(uuid.uuid4())
-
-		saveResult(predict_result, "result.txt", request_id)
+		
 		audio_file = request.files['audio']
 		audio_filename =  audio_file.filename
 		saveFile(audio_file, audio_filename, request_id)
+		if "predict_covid" not in data:
+			predict_result = data["predict_cough"]
+			saveResult(predict_result, "result.txt", request_id)
+		else:
+			predict_result = data["predict_covid"]
+			saveResult(predict_result, "result.txt", request_id)
 
-		test_image = request.files['test_image']
-		test_image_filename = test_image.filename
-		saveFile(test_image, test_image_filename, request_id)
+			test_image = request.files['test_image']
+			test_image_filename = test_image.filename
+			saveFile(test_image, test_image_filename, request_id)
 
 		return jsonify(
 			success=True,
