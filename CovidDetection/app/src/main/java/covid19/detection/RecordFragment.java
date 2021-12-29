@@ -1,6 +1,11 @@
 package covid19.detection;
 
-import covid19.detection.FileUtils;
+import covid19.helper.FileUtils;
+import covid19.helper.WavHelper;
+import covid19.request.ApiConfig;
+import covid19.request.AppConfig;
+import covid19.request.ServerResponse;
+
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
@@ -24,10 +29,9 @@ import com.jlibrosa.audio.JLibrosa;
 import com.jlibrosa.audio.exception.FileFormatNotSupportedException;
 import com.jlibrosa.audio.wavFile.WavFileException;
 
+//import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.Interpreter;
-import org.tensorflow.lite.support.common.FileUtil;
-import org.tensorflow.lite.support.label.TensorLabel;
 
 import org.tensorflow.lite.support.common.TensorProcessor;
 import org.tensorflow.lite.support.common.ops.NormalizeOp;
@@ -83,6 +87,10 @@ public class RecordFragment extends Fragment {
     private Button uploadButton;
     private Button sendErrorBtn;
 
+//    private TensorFlowInferenceInterface inferenceInterface;
+//    private static final String INPUT_DATA_NAME = "conv2d_1_input";
+//    private static final String OUTPUT_SCORES_NAME = "dense_1/Sigmoid";
+
     //    private Button playButton;
     private String predictCovid = "";
     private String predictCough = "";
@@ -96,7 +104,7 @@ public class RecordFragment extends Fragment {
 
 
     private Interpreter coughInterpreter;
-    private List<Interpreter> listInterpreters = new ArrayList<Interpreter>();
+    private Interpreter covidInterpreter;
 
     private AudioRecord recorder = null;
     private String time_count = "";
@@ -186,13 +194,11 @@ public class RecordFragment extends Fragment {
                     }
                 });
 
+//        inferenceInterface = new TensorFlowInferenceInterface(getContext().getAssets(),  "cough_detection.pb");
+
         try {
-            for (int i = 1; i < 3; i++) {
-                String idx = String.valueOf(i);
-                String model_name = "covid_detection_" + idx  + ".tflite";
-                listInterpreters.add(new Interpreter(loadModelFile(model_name), null));
-            }
-            coughInterpreter = new Interpreter(loadModelFile("cough_detection.tflite"), null);
+            covidInterpreter = new Interpreter(loadModelFile("covid_detection.tflite"), null);
+            coughInterpreter = new Interpreter(loadModelFile("mobilenetV2_cough_detection.tflite"), null);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("NOT LOAD MODEL");
@@ -358,113 +364,7 @@ public class RecordFragment extends Fragment {
         recordingThread.start();
     }
 
-    private byte[] short2byte(short[] sData) {
-        int shortArrsize = sData.length;
-        byte[] bytes = new byte[shortArrsize * 2];
 
-        for (int i = 0; i < shortArrsize; i++) {
-            bytes[i * 2] = (byte) (sData[i] & 0x00FF);
-            bytes[(i * 2) + 1] = (byte) (sData[i] >> 8);
-            sData[i] = 0;
-        }
-        return bytes;
-    }
-
-    private static void writeWavHeader(OutputStream out, int channelMask, int sampleRate, int encoding) throws IOException {
-        short channels;
-        switch (channelMask) {
-            case AudioFormat.CHANNEL_IN_MONO:
-                channels = 1;
-                break;
-            case AudioFormat.CHANNEL_IN_STEREO:
-                channels = 2;
-                break;
-            default:
-                throw new IllegalArgumentException("Unacceptable channel mask");
-        }
-
-        short bitDepth;
-        switch (encoding) {
-            case AudioFormat.ENCODING_PCM_8BIT:
-                bitDepth = 8;
-                break;
-            case AudioFormat.ENCODING_PCM_16BIT:
-                bitDepth = 16;
-                break;
-            case AudioFormat.ENCODING_PCM_FLOAT:
-                bitDepth = 32;
-                break;
-            default:
-                throw new IllegalArgumentException("Unacceptable encoding");
-        }
-
-        // Convert the multi-byte integers to raw bytes in little endian format as required by the spec
-        byte[] littleBytes = ByteBuffer
-                .allocate(14)
-                .order(ByteOrder.LITTLE_ENDIAN)
-                .putShort(channels)
-                .putInt(sampleRate)
-                .putInt(sampleRate * channels * (bitDepth / 8))
-                .putShort((short) (channels * (bitDepth / 8)))
-                .putShort(bitDepth)
-                .array();
-
-        // Not necessarily the best, but it's very easy to visualize this way
-        out.write(new byte[]{
-                // RIFF header
-                'R', 'I', 'F', 'F', // ChunkID
-                0, 0, 0, 0, // ChunkSize (must be updated later)
-                'W', 'A', 'V', 'E', // Format
-                // fmt subchunk
-                'f', 'm', 't', ' ', // Subchunk1ID
-                16, 0, 0, 0, // Subchunk1Size
-                1, 0, // AudioFormat
-                littleBytes[0], littleBytes[1], // NumChannels
-                littleBytes[2], littleBytes[3], littleBytes[4], littleBytes[5], // SampleRate
-                littleBytes[6], littleBytes[7], littleBytes[8], littleBytes[9], // ByteRate
-                littleBytes[10], littleBytes[11], // BlockAlign
-                littleBytes[12], littleBytes[13], // BitsPerSample
-                // data subchunk
-                'd', 'a', 't', 'a', // Subchunk2ID
-                0, 0, 0, 0, // Subchunk2Size (must be updated later)
-        });
-    }
-
-    private static void updateWavHeader(File wav) throws IOException {
-        byte[] sizes = ByteBuffer
-                .allocate(8)
-                .order(ByteOrder.LITTLE_ENDIAN)
-                // There are probably a bunch of different/better ways to calculate
-                // these two given your circumstances. Cast should be safe since if the WAV is
-                // > 4 GB we've already made a terrible mistake.
-                .putInt((int) (wav.length() - 8)) // ChunkSize
-                .putInt((int) (wav.length() - 44)) // Subchunk2Size
-                .array();
-
-        RandomAccessFile accessWave = null;
-        //noinspection CaughtExceptionImmediatelyRethrown
-        try {
-            accessWave = new RandomAccessFile(wav, "rw");
-            // ChunkSize
-            accessWave.seek(4);
-            accessWave.write(sizes, 0, 4);
-
-            // Subchunk2Size
-            accessWave.seek(40);
-            accessWave.write(sizes, 4, 4);
-        } catch (IOException ex) {
-            // Rethrow but we still close accessWave in our finally
-            throw ex;
-        } finally {
-            if (accessWave != null) {
-                try {
-                    accessWave.close();
-                } catch (IOException ex) {
-                    //
-                }
-            }
-        }
-    }
 
     private void record() {
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
@@ -497,7 +397,7 @@ public class RecordFragment extends Fragment {
         FileOutputStream outStr = null;
         try {
             outStr = new FileOutputStream(filepath);
-            writeWavHeader(outStr, CHANNEL_MASK, SAMPLE_RATE, ENCODING);
+            WavHelper.writeWavHeader(outStr, CHANNEL_MASK, SAMPLE_RATE, ENCODING);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -509,7 +409,7 @@ public class RecordFragment extends Fragment {
             int maxLength = RECORDING_LENGTH;
             recordingBufferLock.lock();
             try {
-                byte bData[] = short2byte(audioBuffer);
+                byte bData[] = WavHelper.short2byte(audioBuffer);
                 outStr.write(bData, 0, bufferSize);
 
                 time_count = "";
@@ -545,7 +445,7 @@ public class RecordFragment extends Fragment {
                     Log.v(LOG_TAG, "Save audio success " + filepath);
                     outStr.close();
                     File wavFile = new File(filepath);
-                    updateWavHeader(wavFile);
+                    WavHelper.updateWavHeader(wavFile);
                     shouldContinue = false;
                 }
                 recordingOffset += numberRead;
@@ -591,7 +491,7 @@ public class RecordFragment extends Fragment {
 
         String audioFilePath = getContext().getCacheDir().getAbsolutePath() + "/record.wav";
         try {
-            audioFeatureValues = jLibrosa.loadAndRead(audioFilePath, SAMPLE_RATE, 5);
+            audioFeatureValues = jLibrosa.loadAndRead(audioFilePath, SAMPLE_RATE, -1);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (WavFileException e) {
@@ -610,15 +510,34 @@ public class RecordFragment extends Fragment {
             }
         }
 
-        TensorBuffer inputCoughBuffer = TensorBuffer.createFixedSize(inputShape, DataType.FLOAT32);
+//        // Run the model.
+//        String[] outputScoresNames = new String[]{OUTPUT_SCORES_NAME};
+//        float outputScores[] = new float[1];
+//        inferenceInterface.feed(INPUT_DATA_NAME, floatValues, 1, NUM_ROWS, NUM_COLUMNS, 1);
+//        inferenceInterface.run(outputScoresNames);
+//        inferenceInterface.fetch(OUTPUT_SCORES_NAME, outputScores);
+//        Log.v(LOG_TAG, "OUTPUT tf1======> " + Arrays.toString(outputScores));
+
+        final TensorBuffer inputCoughBuffer = TensorBuffer.createFixedSize(inputShape, DataType.FLOAT32);
         inputCoughBuffer.loadArray(floatValues, inputShape);
         TensorBuffer outputCoughBuffer = TensorBuffer.createFixedSize(outputShape, DataType.FLOAT32);
-
-        // Check cough
+//
+////        TensorProcessor inputProcessor =
+////                new TensorProcessor.Builder().add(new NormalizeOp(0, 1)).build();
+////        TensorBuffer dequantizedBuffer = inputProcessor.process(inputCoughBuffer);
+//
+//        // Check cough
         coughInterpreter.run(inputCoughBuffer.getBuffer(), outputCoughBuffer.getBuffer());
+//
+////        TensorProcessor probabilityProcessor =
+////                new TensorProcessor.Builder().add(new NormalizeOp(0, 0)).build();
+////        TensorBuffer dequantizedBuffer = probabilityProcessor.process(outputCoughBuffer);
+////        float[] tmp_result = dequantizedBuffer.getFloatArray();
+////        Log.v(LOG_TAG, Arrays.toString(tmp_result));
+//
         final float[] cough_result = outputCoughBuffer.getFloatArray();
+        Log.v(LOG_TAG, "OUTPUT tf2======> " + Arrays.toString(cough_result));
 
-        Log.v(LOG_TAG, Arrays.toString(cough_result));
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -630,24 +549,17 @@ public class RecordFragment extends Fragment {
                     startButton.setImageResource(R.drawable.active_btn);
                     reportErrorForm.setVisibility(View.VISIBLE);
                 } else {
-                    float sum = 0;
-                    TensorBuffer inputCovidBuffer = TensorBuffer.createFixedSize(inputShape, DataType.FLOAT32);
-                    inputCovidBuffer.loadArray(floatValues, inputShape);
                     TensorBuffer outputCovidBuffer = TensorBuffer.createFixedSize(outputShape, DataType.FLOAT32);
 
-                    for (int i = 0; i < 2; i++) {
-                        listInterpreters.get(i).run(inputCovidBuffer.getBuffer(), outputCovidBuffer.getBuffer());
-                        float[] result = outputCovidBuffer.getFloatArray();
-                        System.out.println(result[0]);
-                        sum += result[0];
-                    }
-                    float final_predict = sum / 2;
-                    predictCovid = String.valueOf(final_predict);
+                    covidInterpreter.run(inputCoughBuffer.getBuffer(), outputCovidBuffer.getBuffer());
+                    float[] covidResult = outputCovidBuffer.getFloatArray();
 
-                    double percent_db = final_predict * 100.0;
+                    predictCovid = String.valueOf(covidResult[0]);
+
+                    double percent_db = covidResult[0] * 100.0;
                     String final_result = df.format(percent_db) + "% bạn bị dương tính";
-                    if (final_predict <= 0.5) {
-                        percent_db = (1 - final_predict) * 100.0;
+                    if (covidResult[0] <= 0.5) {
+                        percent_db = (1 - covidResult[0]) * 100.0;
                         final_result = df.format(percent_db) + "% bạn âm tính";
                         titleText.setTextColor(Color.parseColor("#00e676"));
                     } else {
@@ -666,9 +578,7 @@ public class RecordFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        for (int i = 0; i < 2; i++) {
-            listInterpreters.get(i).close();
-        }
+        covidInterpreter.close();
         coughInterpreter.close();
     }
 }
