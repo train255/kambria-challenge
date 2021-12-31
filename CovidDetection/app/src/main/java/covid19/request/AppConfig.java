@@ -5,7 +5,7 @@ package covid19.request;
 
 public class AppConfig {
 
-    private static String BASE_URL = "https://f658-2402-800-6117-d8e9-00-1.ngrok.io/";
+    private static String BASE_URL = "https://2189-2402-800-619d-870a-00-2.ngrok.io/";
 
     public static Retrofit getRetrofit() {
 

@@ -1,20 +1,14 @@
 package covid19.detection;
 
-import covid19.helper.FileUtils;
-import covid19.helper.WavHelper;
-import covid19.request.ApiConfig;
-import covid19.request.AppConfig;
-import covid19.request.ServerResponse;
-
-import android.content.Intent;
+import android.app.ProgressDialog;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,17 +18,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dd.processbutton.iml.ActionProcessButton;
 import com.jlibrosa.audio.JLibrosa;
 import com.jlibrosa.audio.exception.FileFormatNotSupportedException;
 import com.jlibrosa.audio.wavFile.WavFileException;
 
-//import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.Interpreter;
-
-import org.tensorflow.lite.support.common.TensorProcessor;
-import org.tensorflow.lite.support.common.ops.NormalizeOp;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
 import java.io.File;
@@ -42,31 +34,22 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
-import android.app.ProgressDialog;
-import android.widget.Toast;
-
+import covid19.helper.ProgressGenerator;
+import covid19.helper.WavHelper;
+import covid19.request.ApiConfig;
+import covid19.request.AppConfig;
+import covid19.request.ServerResponse;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.app.Activity.RESULT_OK;
 
 public class RecordFragment extends Fragment {
     private static final int SAMPLE_RATE = 16000;
@@ -80,16 +63,12 @@ public class RecordFragment extends Fragment {
     private static final int ENCODING = AudioFormat.ENCODING_PCM_16BIT;
     private static final int RECORDING_LENGTH = (int) (SAMPLE_RATE * SAMPLE_DURATION_MS / 1000);
     private ImageButton startButton;
-    private ImageButton testImage;
     private TextView titleText;
     private LinearLayout formUpload;
     private LinearLayout reportErrorForm;
     private Button uploadButton;
-    private Button sendErrorBtn;
-
-//    private TensorFlowInferenceInterface inferenceInterface;
-//    private static final String INPUT_DATA_NAME = "conv2d_1_input";
-//    private static final String OUTPUT_SCORES_NAME = "dense_1/Sigmoid";
+    private Button retryBtn;
+    private ActionProcessButton sendErrorBtn;
 
     //    private Button playButton;
     private String predictCovid = "";
@@ -101,17 +80,13 @@ public class RecordFragment extends Fragment {
     private final ReentrantLock recordingBufferLock = new ReentrantLock();
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private ProgressDialog progressDialog;
-
+    private ResultFragment resultDialog;
 
     private Interpreter coughInterpreter;
     private Interpreter covidInterpreter;
 
     private AudioRecord recorder = null;
     private String time_count = "";
-
-    private Uri selectedImageUri;
-
-    int SELECT_PICTURE = 200;
 
     // Working variables.
     int recordingOffset = 0;
@@ -134,7 +109,21 @@ public class RecordFragment extends Fragment {
                     public void onClick(View view) {
                         startButton.setClickable(false);
                         startButton.setEnabled(false);
-                        startButton.setImageResource(R.drawable.disable_btn);
+                        startButton.setImageResource(R.drawable.ic_baseline_mic_none_24);
+                        startButton.setColorFilter(Color.parseColor("#a6a6a7"));
+                        formUpload.setVisibility(View.GONE);
+                        reportErrorForm.setVisibility(View.GONE);
+                        startRecording();
+                    }
+                });
+
+        retryBtn = (Button) view.findViewById(R.id.retryRecord);
+        retryBtn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startButton.setImageResource(R.drawable.ic_baseline_mic_none_24);
+                        startButton.setColorFilter(Color.parseColor("#a6a6a7"));
                         formUpload.setVisibility(View.GONE);
                         reportErrorForm.setVisibility(View.GONE);
                         startRecording();
@@ -146,28 +135,25 @@ public class RecordFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        progressDialog.show();
-                        try {
-                            uploadFile(false);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        showDialog(predictCovid);
                     }
                 });
 
-        sendErrorBtn = (Button) view.findViewById(R.id.sendErrorBtn);
-        sendErrorBtn.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        progressDialog.show();
-                        try {
-                            uploadFile(true);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+        final ProgressGenerator progressGenerator = new ProgressGenerator();
+        sendErrorBtn = (ActionProcessButton) view.findViewById(R.id.sendErrorBtn);
+        sendErrorBtn.setMode(ActionProcessButton.Mode.ENDLESS);
+        sendErrorBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressGenerator.start(sendErrorBtn);
+                sendErrorBtn.setEnabled(false);
+                try {
+                    uploadFile();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
 //        playButton = (Button) view.findViewById(R.id.play_record_audio);
 //        playButton.setOnClickListener(
@@ -178,63 +164,22 @@ public class RecordFragment extends Fragment {
 //                    }
 //                });
 
-
         titleText = (TextView) view.findViewById(R.id.titleView);
         titleText.setTextColor(Color.parseColor("#212121"));
 
         formUpload = (LinearLayout) view.findViewById(R.id.formUpload);
         reportErrorForm = (LinearLayout) view.findViewById(R.id.reportErrorForm);
 
-        testImage = (ImageButton) view.findViewById(R.id.testResult);
-        testImage.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        imageChooser();
-                    }
-                });
-
-//        inferenceInterface = new TensorFlowInferenceInterface(getContext().getAssets(),  "cough_detection.pb");
-
         try {
             covidInterpreter = new Interpreter(loadModelFile("covid_detection.tflite"), null);
             coughInterpreter = new Interpreter(loadModelFile("mobilenetV2_cough_detection.tflite"), null);
+//            coughInterpreter = new Interpreter(loadModelFile("cough_detection.tflite"), null);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("NOT LOAD MODEL");
         }
 
         return view;
-    }
-
-    private void imageChooser() {
-        // create an instance of the
-        // intent of the type image
-        Intent i = new Intent();
-        i.setType("image/*");
-        i.setAction(Intent.ACTION_GET_CONTENT);
-
-        // pass the constant to compare it
-        // with the returned requestCode
-        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-
-            // compare the resultCode with the
-            // SELECT_PICTURE constant
-            if (requestCode == SELECT_PICTURE) {
-                // Get the url of the image from data
-                selectedImageUri = data.getData();
-                if (null != selectedImageUri) {
-                    // update the preview image in the layout
-                    testImage.setImageURI(selectedImageUri);
-                }
-            }
-        }
     }
 
 //    private void playAudio() {
@@ -271,72 +216,43 @@ public class RecordFragment extends Fragment {
 //    }
 
 
-    private void uploadFile(boolean only_audio) throws Exception {
+    private void uploadFile() throws Exception {
         String sourceFileUri = getContext().getCacheDir().getAbsolutePath() + "/record.wav";
 
         File audioFile = new File(sourceFileUri);
         RequestBody audio_body = RequestBody.create(MediaType.parse("audio/*"), audioFile);
         ApiConfig getResponse = AppConfig.getRetrofit().create(ApiConfig.class);
 
-        if (only_audio) {
-            RequestBody predict_cough = RequestBody.create(MediaType.parse("text/plain"), predictCough);
-            Call<ServerResponse> call = getResponse.sendError(audio_body, predict_cough);
+        RequestBody predict_cough = RequestBody.create(MediaType.parse("text/plain"), predictCough);
+        Call<ServerResponse> call = getResponse.sendError(audio_body, predict_cough);
 
-            call.enqueue(new Callback<ServerResponse>() {
-                @Override
-                public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                    ServerResponse serverResponse = response.body();
-                    if (serverResponse != null) {
-                        if (serverResponse.getSuccess()) {
-                            Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+        call.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                ServerResponse serverResponse = response.body();
+                if (serverResponse != null) {
+                    if (serverResponse.getSuccess()) {
+                        sendErrorBtn.setProgress(100);
+//                        Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
-                        assert serverResponse != null;
-                        Log.v("Response", serverResponse.toString());
+//                        Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        sendErrorBtn.setProgress(-1);
                     }
-                    progressDialog.dismiss();
+                } else {
+                    assert serverResponse != null;
+                    Log.v("Response", serverResponse.toString());
                 }
 
-                @Override
-                public void onFailure(Call<ServerResponse> call, Throwable t) {
+            }
 
-                }
-            });
-        } else {
-            File imageFile = FileUtils.getFileFromUri(getContext(), selectedImageUri);
-            RequestBody image_body = RequestBody.create(MediaType.parse("image/*"), imageFile);
-            RequestBody predict_result = RequestBody.create(MediaType.parse("text/plain"), predictCovid);
-            Call<ServerResponse> call = getResponse.uploadFile(audio_body, image_body, predict_result);
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
 
-            call.enqueue(new Callback<ServerResponse>() {
-                @Override
-                public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                    ServerResponse serverResponse = response.body();
-                    if (serverResponse != null) {
-                        if (serverResponse.getSuccess()) {
-                            Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getActivity().getApplicationContext(), serverResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        assert serverResponse != null;
-                        Log.v("Response", serverResponse.toString());
-                    }
-                    progressDialog.dismiss();
-                }
-
-                @Override
-                public void onFailure(Call<ServerResponse> call, Throwable t) {
-
-                }
-            });
-        }
+            }
+        });
     }
 
-    private MappedByteBuffer loadModelFile(String model_name) throws IOException
-    {
+    private MappedByteBuffer loadModelFile(String model_name) throws IOException {
         AssetFileDescriptor assetFileDescriptor = getContext().getAssets().openFd(model_name);
 
         FileInputStream fileInputStream = new FileInputStream(assetFileDescriptor.getFileDescriptor());
@@ -345,7 +261,7 @@ public class RecordFragment extends Fragment {
         long startOffset = assetFileDescriptor.getStartOffset();
         long len = assetFileDescriptor.getLength();
 
-        return fileChannel.map(FileChannel.MapMode.READ_ONLY,startOffset,len);
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, len);
     }
 
     public synchronized void startRecording() {
@@ -365,24 +281,23 @@ public class RecordFragment extends Fragment {
     }
 
 
-
     private void record() {
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
         // Estimate the buffer size we'll need for this device.
         int bufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE,
-                        CHANNEL_MASK,
-                        ENCODING);
+                CHANNEL_MASK,
+                ENCODING);
         if (bufferSize == AudioRecord.ERROR || bufferSize == AudioRecord.ERROR_BAD_VALUE) {
             bufferSize = SAMPLE_RATE * 2;
         }
         short[] audioBuffer = new short[bufferSize / 2];
 
         recorder = new AudioRecord(
-                        MediaRecorder.AudioSource.DEFAULT,
-                        SAMPLE_RATE,
-                        CHANNEL_MASK,
-                        ENCODING,
-                        bufferSize);
+                MediaRecorder.AudioSource.DEFAULT,
+                SAMPLE_RATE,
+                CHANNEL_MASK,
+                ENCODING,
+                bufferSize);
 
         if (recorder.getState() != AudioRecord.STATE_INITIALIZED) {
             Log.e(LOG_TAG, "Audio Record can't initialize!");
@@ -392,7 +307,7 @@ public class RecordFragment extends Fragment {
         recorder.startRecording();
         Log.v(LOG_TAG, "Start recording");
 
-        String filepath = getContext().getCacheDir().getAbsolutePath()+"/record.wav";
+        String filepath = getContext().getCacheDir().getAbsolutePath() + "/record.wav";
         Log.v(LOG_TAG, filepath);
         FileOutputStream outStr = null;
         try {
@@ -417,11 +332,11 @@ public class RecordFragment extends Fragment {
                     time_count = "5";
                 else if (recordingOffset == SAMPLE_RATE)
                     time_count = "4";
-                else if (recordingOffset == 2*SAMPLE_RATE)
+                else if (recordingOffset == 2 * SAMPLE_RATE)
                     time_count = "3";
-                else if (recordingOffset == 3*SAMPLE_RATE)
+                else if (recordingOffset == 3 * SAMPLE_RATE)
                     time_count = "2";
-                else if (recordingOffset == 4*SAMPLE_RATE)
+                else if (recordingOffset == 4 * SAMPLE_RATE)
                     time_count = "1";
 
                 if (time_count != "") {
@@ -483,6 +398,21 @@ public class RecordFragment extends Fragment {
         recognitionThread.start();
     }
 
+    private void showDialog(String result) {
+        // DialogFragment.show() will take care of adding the fragment
+        // in a transaction.  We also want to remove any currently showing
+        // dialog, so make our own transaction and take care of that here.
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+        // Supply num input as an argument.
+        resultDialog = ResultFragment.newInstance(result);
+        resultDialog.show(ft, "dialog");
+    }
+
     private void recognize() {
         Log.v(LOG_TAG, "Start recognition");
 
@@ -503,38 +433,19 @@ public class RecordFragment extends Fragment {
         float[][] mfccValues = jLibrosa.generateMFCCFeatures(audioFeatureValues, SAMPLE_RATE, NUM_ROWS, 4096, 512, 512);
         final float[] floatValues = new float[NUM_ROWS * NUM_COLUMNS * NUM_CHANNELS];
         int count = 0;
-        for(int i = 0; i< mfccValues.length; ++i){
+        for (int i = 0; i < mfccValues.length; ++i) {
             for (int j = 0; j < mfccValues[i].length; ++j) {
                 floatValues[count] = (float) mfccValues[i][j];
                 count = count + 1;
             }
         }
 
-//        // Run the model.
-//        String[] outputScoresNames = new String[]{OUTPUT_SCORES_NAME};
-//        float outputScores[] = new float[1];
-//        inferenceInterface.feed(INPUT_DATA_NAME, floatValues, 1, NUM_ROWS, NUM_COLUMNS, 1);
-//        inferenceInterface.run(outputScoresNames);
-//        inferenceInterface.fetch(OUTPUT_SCORES_NAME, outputScores);
-//        Log.v(LOG_TAG, "OUTPUT tf1======> " + Arrays.toString(outputScores));
-
         final TensorBuffer inputCoughBuffer = TensorBuffer.createFixedSize(inputShape, DataType.FLOAT32);
         inputCoughBuffer.loadArray(floatValues, inputShape);
         TensorBuffer outputCoughBuffer = TensorBuffer.createFixedSize(outputShape, DataType.FLOAT32);
-//
-////        TensorProcessor inputProcessor =
-////                new TensorProcessor.Builder().add(new NormalizeOp(0, 1)).build();
-////        TensorBuffer dequantizedBuffer = inputProcessor.process(inputCoughBuffer);
-//
-//        // Check cough
+
         coughInterpreter.run(inputCoughBuffer.getBuffer(), outputCoughBuffer.getBuffer());
-//
-////        TensorProcessor probabilityProcessor =
-////                new TensorProcessor.Builder().add(new NormalizeOp(0, 0)).build();
-////        TensorBuffer dequantizedBuffer = probabilityProcessor.process(outputCoughBuffer);
-////        float[] tmp_result = dequantizedBuffer.getFloatArray();
-////        Log.v(LOG_TAG, Arrays.toString(tmp_result));
-//
+
         final float[] cough_result = outputCoughBuffer.getFloatArray();
         Log.v(LOG_TAG, "OUTPUT tf2======> " + Arrays.toString(cough_result));
 
@@ -546,8 +457,12 @@ public class RecordFragment extends Fragment {
                     titleText.setText("Không nhận dạng được tiếng ho");
                     startButton.setClickable(true);
                     startButton.setEnabled(true);
-                    startButton.setImageResource(R.drawable.active_btn);
+                    startButton.setImageResource(R.drawable.ic_baseline_mic_24);
+                    startButton.setColorFilter(Color.parseColor("#3F51B5"));
                     reportErrorForm.setVisibility(View.VISIBLE);
+                    sendErrorBtn.setProgress(0);
+                    sendErrorBtn.setClickable(true);
+                    sendErrorBtn.setEnabled(true);
                 } else {
                     TensorBuffer outputCovidBuffer = TensorBuffer.createFixedSize(outputShape, DataType.FLOAT32);
 
@@ -558,17 +473,22 @@ public class RecordFragment extends Fragment {
 
                     double percent_db = covidResult[0] * 100.0;
                     String final_result = df.format(percent_db) + "% bạn bị dương tính";
+
                     if (covidResult[0] <= 0.5) {
                         percent_db = (1 - covidResult[0]) * 100.0;
                         final_result = df.format(percent_db) + "% bạn âm tính";
                         titleText.setTextColor(Color.parseColor("#00e676"));
+                        startButton.setImageResource(R.drawable.ic_baseline_verified_user_24);
+                        startButton.setColorFilter(Color.parseColor("#00e676"));
                     } else {
                         titleText.setTextColor(Color.parseColor("#ff1744"));
+                        startButton.setImageResource(R.drawable.ic_baseline_privacy_tip_24);
+                        startButton.setColorFilter(Color.parseColor("#ff1744"));
                     }
                     titleText.setText(final_result);
-                    startButton.setClickable(true);
-                    startButton.setEnabled(true);
-                    startButton.setImageResource(R.drawable.active_btn);
+//                    startButton.setClickable(true);
+//                    startButton.setEnabled(true);
+//                    startButton.setImageResource(R.drawable.active_btn);
                     formUpload.setVisibility(View.VISIBLE);
                 }
             }
