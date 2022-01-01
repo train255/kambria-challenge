@@ -1,6 +1,9 @@
 import tensorflow as tf
-from tensorflow.keras.layers import BatchNormalization, Conv2D, Dense, GlobalAveragePooling2D
+from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
+
 from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import BatchNormalization, Conv2D, Dense, GlobalAveragePooling2D
+
 
 def create_cnn():
 	num_rows = 120
@@ -41,9 +44,9 @@ src_pth = "models/cough_detection.hdf5"
 dst_pth = "models/cough_detection.tflite"
 convert(src_pth, dst_pth)
 
-# # Convert covid detection model
-# for i in range(1, 6):
-# 	src_pth = "models/covid_detection_"+str(i)+".hdf5"
-# 	dst_pth = "models/covid_detection_"+str(i)+".tflite"
-# 	convert(src_pth, dst_pth)
+# Convert covid detection model
+for i in range(1, 6):
+	src_pth = "models/covid_detection_"+str(i)+".hdf5"
+	dst_pth = "models/covid_detection_"+str(i)+".tflite"
+	convert(src_pth, dst_pth)
 
