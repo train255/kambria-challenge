@@ -2,9 +2,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     tools:context="covid19.detection.RecordFragment">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        android:id="@+id/giftLayout">
+        <ImageButton
+            android:id="@+id/gift"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/colorPrimaryLight"
+            android:src="@drawable/ic_baseline_card_giftcard_24"
+            />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -136,5 +157,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
 </FrameLayout>

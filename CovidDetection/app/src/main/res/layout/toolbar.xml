@@ -7,7 +7,6 @@
     android:background="@color/colorPrimary"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     app:navigationIcon="@drawable/ic_baseline_menu_24"
-    app:title="Phát hiện covid qua tiếng ho"
     app:titleTextColor="#FFF">
     <!-- navigation button and title for the Toolbar-->
 
