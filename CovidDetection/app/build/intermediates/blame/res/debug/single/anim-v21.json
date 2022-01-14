@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/anim-v21/design_bottom_sheet_slide_out.xml",
+        "source": "/home/train/.android/build-cache/61a1a8b4b5256abb80ab436de2758ccb3d39ee66/output/res/anim-v21/design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/anim-v21/design_bottom_sheet_slide_in.xml",
+        "source": "/home/train/.android/build-cache/61a1a8b4b5256abb80ab436de2758ccb3d39ee66/output/res/anim-v21/design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/anim-v21/design_appbar_state_list_animator.xml",
+        "source": "/home/train/.android/build-cache/61a1a8b4b5256abb80ab436de2758ccb3d39ee66/output/res/anim-v21/design_appbar_state_list_animator.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/anim-v21/design_appbar_state_list_animator.xml",
+        "source": "/home/train/.android/build-cache/61a1a8b4b5256abb80ab436de2758ccb3d39ee66/output/res/anim-v21/design_appbar_state_list_animator.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/anim-v21/design_bottom_sheet_slide_in.xml",
+        "source": "/home/train/.android/build-cache/61a1a8b4b5256abb80ab436de2758ccb3d39ee66/output/res/anim-v21/design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/anim-v21/mtrl_bottom_sheet_slide_in.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/anim-v21/mtrl_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/anim-v21/design_bottom_sheet_slide_out.xml",
+        "source": "/home/train/.android/build-cache/61a1a8b4b5256abb80ab436de2758ccb3d39ee66/output/res/anim-v21/design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/anim-v21/mtrl_bottom_sheet_slide_out.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/anim-v21/mtrl_bottom_sheet_slide_out.xml"
+    }
+]

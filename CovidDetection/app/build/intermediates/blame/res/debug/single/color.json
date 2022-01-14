@@ -1,0 +1,386 @@
+[
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_slider_halo_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_slider_halo_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_slider_inactive_track_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_slider_inactive_track_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/color/switch_thumb_material_dark.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_on_primary_emphasis_high_type.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_on_primary_emphasis_high_type.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_on_background_emphasis_medium.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_on_background_emphasis_medium.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_tabs_icon_color_selector_colored.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_tabs_icon_color_selector_colored.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_on_surface_emphasis_medium.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_on_surface_emphasis_medium.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_primary_text_material_light.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_navigation_item_text_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_navigation_item_text_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_tabs_ripple_color.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_tabs_ripple_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_slider_inactive_tick_marks_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_slider_inactive_tick_marks_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_btn_text_color_selector.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_btn_text_color_selector.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/checkbox_themeable_attribute_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/checkbox_themeable_attribute_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_timepicker_clock_text_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_timepicker_clock_text_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_filled_background_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_filled_background_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_choice_chip_background_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_choice_chip_background_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_chip_surface_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_chip_surface_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_navigation_bar_colored_item_tint.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_navigation_bar_colored_item_tint.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_tabs_icon_color_selector.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_tabs_icon_color_selector.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_on_primary_text_btn_text_color_selector.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_on_primary_text_btn_text_color_selector.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_light.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_calendar_selected_range.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_calendar_selected_range.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/color/design_error.xml",
+        "source": "/home/train/.android/build-cache/61a1a8b4b5256abb80ab436de2758ccb3d39ee66/output/res/color/design_error.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_btn_text_btn_bg_color_selector.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_btn_text_btn_bg_color_selector.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_on_primary_disabled.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_on_primary_disabled.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_card_view_foreground.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_card_view_foreground.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_on_background_disabled.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_on_background_disabled.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_secondary_text_material_light.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_hint_foreground_material_light.xml",
+        "source": "/home/train/.android/build-cache/f5ac2464db2da29b898d4cbe449d6caa8bc619f5/output/res/color/abc_hint_foreground_material_light.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_outlined_stroke_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_outlined_stroke_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_btn_stroke_color_selector.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_btn_stroke_color_selector.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_dark.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_slider_active_tick_marks_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_slider_active_tick_marks_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_primary_text_material_dark.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_btn_ripple_color.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_btn_ripple_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_fab_bg_color_selector.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_fab_bg_color_selector.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_on_surface_emphasis_high_type.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_on_surface_emphasis_high_type.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/test_mtrl_calendar_day.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/test_mtrl_calendar_day.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_slider_active_track_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_slider_active_track_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_indicator_text_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_indicator_text_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_navigation_bar_ripple_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_navigation_bar_ripple_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_chip_close_icon_tint.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_chip_close_icon_tint.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_chip_ripple_color.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_chip_ripple_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/design_box_stroke_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/design_box_stroke_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_filled_stroke_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_filled_stroke_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_primary_text_material_light.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/switch_thumb_material_dark.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_on_surface_ripple_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_on_surface_ripple_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_light.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_on_surface_stroke.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_on_surface_stroke.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_btn_text_btn_ripple_color.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_btn_text_btn_ripple_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_tabs_colored_ripple_color.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_tabs_colored_ripple_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_card_view_ripple.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_card_view_ripple.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_secondary_text_material_dark.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_secondary_text_material_dark.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_timepicker_button_background.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_timepicker_button_background.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_popupmenu_overlay_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_popupmenu_overlay_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_dark.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_navigation_item_icon_tint.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_navigation_item_icon_tint.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_choice_chip_ripple_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_choice_chip_ripple_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_navigation_bar_item_tint.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_navigation_bar_item_tint.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/color/switch_thumb_material_light.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_navigation_item_background_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_navigation_item_background_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_secondary_text_material_light.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_hint_foreground_material_dark.xml",
+        "source": "/home/train/.android/build-cache/f5ac2464db2da29b898d4cbe449d6caa8bc619f5/output/res/color/abc_hint_foreground_material_dark.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_bottom_nav_colored_item_tint.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_bottom_nav_colored_item_tint.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_timepicker_clockface.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_timepicker_clockface.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_primary_text_material_dark.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/design_error.xml",
+        "source": "/home/train/.android/build-cache/61a1a8b4b5256abb80ab436de2758ccb3d39ee66/output/res/color/design_error.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_chip_background_color.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_chip_background_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_search_url_text.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_search_url_text.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_timepicker_button_stroke.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_timepicker_button_stroke.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/switch_thumb_material_light.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_slider_thumb_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_slider_thumb_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_on_primary_emphasis_medium.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_on_primary_emphasis_medium.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_fab_ripple_color.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_fab_ripple_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/radiobutton_themeable_attribute_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/radiobutton_themeable_attribute_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_timepicker_modebutton_tint.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_timepicker_modebutton_tint.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_on_surface_disabled.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_on_surface_disabled.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_error.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_error.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_tabs_legacy_text_color_selector.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_tabs_legacy_text_color_selector.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_filled_icon_tint.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_filled_icon_tint.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/test_mtrl_calendar_day_selected.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/test_mtrl_calendar_day_selected.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_navigation_bar_colored_ripple_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_navigation_bar_colored_ripple_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_on_background_emphasis_high_type.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_on_background_emphasis_high_type.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_btn_bg_color_selector.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_btn_bg_color_selector.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/design_icon_tint.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/design_icon_tint.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_chip_text_color.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_chip_text_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_outlined_icon_tint.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_outlined_icon_tint.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/abc_search_url_text.xml",
+        "source": "/home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/res/color/abc_search_url_text.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_fab_icon_text_color_selector.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_fab_icon_text_color_selector.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_bottom_nav_item_tint.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_bottom_nav_item_tint.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_text_btn_text_color_selector.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/color/mtrl_text_btn_text_color_selector.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_choice_chip_text_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_choice_chip_text_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/mtrl_calendar_item_stroke_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/mtrl_calendar_item_stroke_color.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color/material_cursor_color.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color/material_cursor_color.xml"
+    }
+]

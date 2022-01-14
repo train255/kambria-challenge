@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/layout-sw600dp-v13/design_layout_snackbar.xml",
+        "source": "/home/train/.android/build-cache/61a1a8b4b5256abb80ab436de2758ccb3d39ee66/output/res/layout-sw600dp-v13/design_layout_snackbar.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/layout-sw600dp-v13/design_layout_snackbar.xml",
+        "source": "/home/train/.android/build-cache/61a1a8b4b5256abb80ab436de2758ccb3d39ee66/output/res/layout-sw600dp-v13/design_layout_snackbar.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/layout-sw600dp-v13/mtrl_layout_snackbar.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/layout-sw600dp-v13/mtrl_layout_snackbar.xml"
+    }
+]

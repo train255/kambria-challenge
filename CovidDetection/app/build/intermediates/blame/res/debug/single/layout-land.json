@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/layout-land/material_timepicker.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/layout-land/material_timepicker.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/layout-land/mtrl_picker_header_dialog.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/layout-land/mtrl_picker_header_dialog.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/layout-land/material_clock_period_toggle_land.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/layout-land/material_clock_period_toggle_land.xml"
+    }
+]

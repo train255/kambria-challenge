@@ -1,0 +1,90 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:2:1-26:12
+	package
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:4:5-32
+		INJECTED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml
+		INJECTED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:3:5-51
+	xmlns:android
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:5:5-80
+	android:name
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:5:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:6:5-81
+	android:name
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:6:22-78
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:7:5-71
+	android:name
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:7:22-68
+uses-permission#android.permission.INTERNET
+ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:8:5-67
+	android:name
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:8:22-64
+application
+ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:10:5-24:19
+MERGED from [com.android.support:design:24.2.1] /home/train/.android/build-cache/61a1a8b4b5256abb80ab436de2758ccb3d39ee66/output/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:24.2.1] /home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:animated-vector-drawable:24.2.1] /home/train/.android/build-cache/9667c0435e788b5dde6009aab933d54e4f8f3f3f/output/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:24.2.1] /home/train/.android/build-cache/697b8129773c62d59f4b14913e67a9581147eb5f/output/AndroidManifest.xml:23:5-20
+MERGED from [org.tensorflow:tensorflow-lite:2.4.0] /home/train/.android/build-cache/d24502c199c5da0308af876b0dcd60f7d6ab3357/output/AndroidManifest.xml:10:5-20
+MERGED from [com.android.support:support-v4:24.2.1] /home/train/.android/build-cache/29e60df2b0f7d95784a826590e1d441653a3f073/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-fragment:24.2.1] /home/train/.android/build-cache/82cc63b69a1f6ceac38d40be5187af469c624fe1/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-media-compat:24.2.1] /home/train/.android/build-cache/030d7b1b8c3b00dc717d46ca0d4dc85f4f34cf87/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-ui:24.2.1] /home/train/.android/build-cache/1dd6e60561ce2d83ddeac5efd49e6bcc6ded70f0/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-utils:24.2.1] /home/train/.android/build-cache/5a5ec2b78fb2ad5a45be3326b14e70ad417375d7/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-compat:24.2.1] /home/train/.android/build-cache/f22c1f2e250e62c06b4a6977b2287fc84e648e51/output/AndroidManifest.xml:25:5-20
+	android:label
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:13:9-41
+	android:supportsRtl
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:14:9-35
+	android:debuggable
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:15:9-34
+	android:allowBackup
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:11:9-35
+	android:icon
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:12:9-43
+	android:theme
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:16:9-40
+activity#covid19.detection.MainActivity
+ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:17:9-23:20
+	android:name
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:17:19-64
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:18:13-22:29
+action#android.intent.action.MAIN
+ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:19:17-69
+	android:name
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:19:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:21:17-77
+	android:name
+		ADDED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml:21:27-74
+uses-sdk
+INJECTED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:design:24.2.1] /home/train/.android/build-cache/61a1a8b4b5256abb80ab436de2758ccb3d39ee66/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:24.2.1] /home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:24.2.1] /home/train/.android/build-cache/9667c0435e788b5dde6009aab933d54e4f8f3f3f/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:24.2.1] /home/train/.android/build-cache/697b8129773c62d59f4b14913e67a9581147eb5f/output/AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:recyclerview-v7:24.2.1] /home/train/.android/build-cache/ef5513ef6e8656fdb45d42b83c3c284a904bea55/output/AndroidManifest.xml:20:5-43
+MERGED from [org.tensorflow:tensorflow-lite-support:0.2.0] /home/train/.android/build-cache/5af88d31155b29d7aa30860a7475e5ee7cda53f7/output/AndroidManifest.xml:4:3-71
+MERGED from [org.tensorflow:tensorflow-lite:2.4.0] /home/train/.android/build-cache/d24502c199c5da0308af876b0dcd60f7d6ab3357/output/AndroidManifest.xml:7:5-8:41
+MERGED from [com.github.dmytrodanylyk.android-process-button:library:1.0.4] /home/train/.android/build-cache/b505cc8d1cf52a6609034da37f8488a68233f2b1/output/AndroidManifest.xml:8:5-10:41
+MERGED from [com.android.support:support-v4:24.2.1] /home/train/.android/build-cache/29e60df2b0f7d95784a826590e1d441653a3f073/output/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:24.2.1] /home/train/.android/build-cache/82cc63b69a1f6ceac38d40be5187af469c624fe1/output/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:24.2.1] /home/train/.android/build-cache/030d7b1b8c3b00dc717d46ca0d4dc85f4f34cf87/output/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:24.2.1] /home/train/.android/build-cache/1dd6e60561ce2d83ddeac5efd49e6bcc6ded70f0/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:24.2.1] /home/train/.android/build-cache/5a5ec2b78fb2ad5a45be3326b14e70ad417375d7/output/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:24.2.1] /home/train/.android/build-cache/f22c1f2e250e62c06b4a6977b2287fc84e648e51/output/AndroidManifest.xml:21:5-23:58
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:24.2.1] /home/train/.android/build-cache/ab62a7c04ff642de0381cf3cebf95cc70fdd05fe/output/AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		ADDED from [org.tensorflow:tensorflow-lite-support:0.2.0] /home/train/.android/build-cache/5af88d31155b29d7aa30860a7475e5ee7cda53f7/output/AndroidManifest.xml:4:40-69
+	android:minSdkVersion
+		INJECTED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml
+		MERGED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml
+		INJECTED from /home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/AndroidManifest.xml

@@ -1,0 +1,78 @@
+[
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/mtrl_extended_fab_change_size_collapse_motion_spec.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/animator/mtrl_extended_fab_change_size_collapse_motion_spec.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/linear_indeterminate_line2_tail_interpolator.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/animator/linear_indeterminate_line2_tail_interpolator.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/mtrl_fab_transformation_sheet_expand_spec.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/animator/mtrl_fab_transformation_sheet_expand_spec.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/mtrl_card_state_list_anim.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/animator/mtrl_card_state_list_anim.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/linear_indeterminate_line1_head_interpolator.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/animator/linear_indeterminate_line1_head_interpolator.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/mtrl_fab_show_motion_spec.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/animator/mtrl_fab_show_motion_spec.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/mtrl_chip_state_list_anim.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/animator/mtrl_chip_state_list_anim.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/mtrl_btn_unelevated_state_list_anim.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/animator/mtrl_btn_unelevated_state_list_anim.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/design_fab_show_motion_spec.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/animator/design_fab_show_motion_spec.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/mtrl_extended_fab_state_list_animator.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/animator/mtrl_extended_fab_state_list_animator.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/mtrl_extended_fab_hide_motion_spec.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/animator/mtrl_extended_fab_hide_motion_spec.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/mtrl_extended_fab_change_size_expand_motion_spec.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/animator/mtrl_extended_fab_change_size_expand_motion_spec.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/linear_indeterminate_line2_head_interpolator.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/animator/linear_indeterminate_line2_head_interpolator.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/mtrl_extended_fab_show_motion_spec.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/animator/mtrl_extended_fab_show_motion_spec.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/design_fab_hide_motion_spec.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/animator/design_fab_hide_motion_spec.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/mtrl_btn_state_list_anim.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/animator/mtrl_btn_state_list_anim.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/mtrl_fab_hide_motion_spec.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/animator/mtrl_fab_hide_motion_spec.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/linear_indeterminate_line1_tail_interpolator.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/animator/linear_indeterminate_line1_tail_interpolator.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/animator/mtrl_fab_transformation_sheet_collapse_spec.xml",
+        "source": "/home/train/.android/build-cache/9ffc43c23a13c1d0d9761cd2361a8ccb02e92b1c/output/res/animator/mtrl_fab_transformation_sheet_collapse_spec.xml"
+    }
+]

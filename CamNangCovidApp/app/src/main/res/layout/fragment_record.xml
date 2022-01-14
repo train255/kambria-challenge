@@ -1,0 +1,211 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecordFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/parent.contentLayout"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/app_bar_main">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/giftLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:visibility="invisible">
+
+                    <ImageButton
+                        android:id="@+id/gift"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:adjustViewBounds="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/gift" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textIntroView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:padding="22dp"
+                        android:text="Ứng dụng dự đoán người nhiễm covid qua tiếng ho. Đây là phiên bản thử nghiệm chỉ mang tính chất tham khảo"
+                        android:textAlignment="center"
+                        android:textSize="17dp" />
+
+                    <info.abdolahi.CircularMusicProgressBar
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/voice_processbar"
+                        android:layout_width="210dp"
+                        android:layout_height="210dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_mic_none"
+                        app:border_color="@color/gradientLightOrange"
+                        app:border_width="10dp"
+                        app:centercircle_diammterer="1"
+                        app:progress_color="@color/gradientOrange3"
+                        app:progress_startAngle="0"
+                        app:draw_anticlockwise="false"
+                        app:enable_touch="false"
+                        android:visibility="gone"
+                        android:layout_marginTop="40dp"/>
+
+                    <ImageButton
+                        android:id="@+id/start"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_baseline_mic_24"
+                        android:tint="@color/gradientLightGreen"
+                        />
+
+                    <ImageView
+                        android:id="@+id/resultImg"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="60dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_baseline_verified_user_24"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/titleView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:textColor="@color/miniTitleColor"
+                        android:text="Ghi âm tiếng ho để chẩn đoán"
+                        android:textAlignment="center"
+                        android:textSize="20dp" />
+
+
+                    <LinearLayout
+                        android:id="@+id/formUpload"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:gravity="center|bottom"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="22dp"
+                            android:layout_marginRight="22dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginTop="20dp"
+                            android:text="Nếu bạn có kết quả xét nghiệm hãy gửi cho chúng tôi"
+                            android:textSize="15dp" />
+
+                        <Button
+                            android:id="@+id/button_save"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="22dp"
+                            android:layout_marginRight="22dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/primaryTextColor"
+                            android:text="Gửi kết quả"
+                            android:textColor="#ffffff" />
+
+                        <Button
+                            android:id="@+id/retryRecord"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="22dp"
+                            android:layout_marginRight="22dp"
+                            android:layout_marginBottom="24dp"
+                            android:background="@color/primaryTextColor"
+                            android:text="Thử lại"
+                            android:textColor="#ffffff" />
+
+                        <!--            <Button-->
+                        <!--                android:id="@+id/play_record_audio"-->
+                        <!--                android:layout_width="wrap_content"-->
+                        <!--                android:layout_height="wrap_content"-->
+                        <!--                android:layout_marginTop="24dp"-->
+                        <!--                android:layout_gravity="center"-->
+                        <!--                android:text="Nghe lại tiếng ho" />-->
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/reportErrorForm"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:gravity="center|bottom"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/textErrorView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="22dp"
+                            android:layout_marginRight="22dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="Nếu bạn thấy đây là lỗi hãy gửi cho chúng tôi"
+                            android:textSize="15dp" />
+
+                        <!--            <com.dd.processbutton.iml.ActionProcessButton-->
+                        <!--                android:id="@+id/sendErrorBtn"-->
+                        <!--                android:layout_width="match_parent"-->
+                        <!--                android:layout_height="48dp"-->
+                        <!--                android:layout_marginBottom="24dp"-->
+                        <!--                android:text="Báo cáo lỗi"-->
+                        <!--                android:textColor="#ffffff"-->
+                        <!--                android:textSize="18sp"-->
+                        <!--                android:layout_marginLeft="22dp"-->
+                        <!--                android:layout_marginRight="22dp"-->
+                        <!--                custom:pb_colorComplete="@color/green_complete"-->
+                        <!--                custom:pb_colorNormal="@color/blue_normal"-->
+                        <!--                custom:pb_colorPressed="@color/blue_pressed"-->
+                        <!--                custom:pb_colorProgress="@color/purple_progress"-->
+                        <!--                custom:pb_textComplete="@string/Done"-->
+                        <!--                custom:pb_textProgress="@string/Uploading" />-->
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

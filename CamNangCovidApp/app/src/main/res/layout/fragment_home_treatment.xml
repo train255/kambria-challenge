@@ -1,0 +1,362 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeTreatmentFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/parent.contentLayout"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/app_bar_main">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:src="@drawable/treatment_detail" />
+
+                <TextView
+                    android:text="Điều trị COVID-19 tại nhà"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    style="@style/viewParent.headerText" />
+
+                <TextView
+                    android:text="Chuẩn bị các loại thuốc"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="1. Các thuốc hạ sốt\n2. Nhóm các thuốc chữa ho\n3. Nhóm các thuốc tiêu chảy\n4. Nước súc miệng\n5. Cồn sát trùng\n6. Các thuốc bệnh nền nếu F0 có bệnh nền (nên chuẩn bị đủ cho 4 tuần)\n7. Các loại thuốc xịt mũi\n8. Vitamin C, kẽm, các loại thảo dược trị cảm, trị ho\n9. Nước uống thông thường, nước bù điện giải."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Chuẩn bị thiết bị y tế"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="1. Nhiệt kế\n2. Máy đo SpO2\n3. Que test nhanh\n4. Khẩu trang\n5. Găng tay y tế\n6. Các máy theo dõi bệnh nền"
+                    android:textSize="16dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/medicine" />
+
+                <TextView
+                    android:text="Điều kiện cách ly tại nhà"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:text='Hội đủ 02 tiêu chí lâm sàng'
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="1. Không triệu chứng hoặc triệu chứng lâm sàng ở mức độ nhẹ (không có suy hô hấp: SpO2 ≥ 96% khi thở khí trời, nhịp thở ≤ 20 lần/phút)."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="2. Độ tuổi từ 1 đến 50 tuổi, không có bệnh nền, không đang mang thai, không béo phì. Đối với những trường hợp không thỏa điều kiện này vẫn có thể xem xét cách ly tại nhà nếu có bệnh nền ổn định, bảo đảm tiêm đủ 2 mũi hoặc sau 14 ngày kể từ ngày tiêm mũi vắc xin phòng COVID-19 đầu tiên."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text='Có khả năng tự chăm sóc'
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Người F0 có thể tự chăm sóc bản thân (như ăn uống, tắm rửa, giặt quần áo, vệ sinh...); biết cách đo thân nhiệt; có khả năng tự dùng thuốc theo đơn thuốc của bác sĩ; có khả năng liên lạc với nhân viên y tế để được theo dõi, giám sát và khi có tình trạng cấp cứu. Trường hợp F0 là trẻ em hoặc người không tự chăm sóc cá nhân được thì cần phải có người hỗ trợ chăm sóc."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text='Trong gia đình không có người thuộc nhóm nguy cơ (người cao tuổi, có bệnh nền, béo phì, có thai...).'
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Những điều F0 cần làm khi cách ly tại nhà"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Không bi quan, giữ tâm lý luôn thoải mái. Khi gặp khó khăn, liên hệ nhân viên y tế để được tư vấn từ xa."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Tự theo dõi sức khỏe: Đo thân nhiệt, đếm nhịp thở, đo SpO2 (nếu đo được) ít nhất hai lần một ngày, hoặc khi cảm thấy mệt, khó thở"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Rửa tay hoặc sát khuẩn tay thường xuyên"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Rửa mũi, súc họng hàng ngày bằng nước muối sinh lý."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Thường xuyên tập thở, vận động nâng cao sức khỏe."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Uống đủ nước hoặc nhiều hơn nếu có sốt, tiêu chảy. Không bỏ bữa, tăng cường dinh dưỡng, ăn uống đủ chất, tăng cường trái cây tươi, rau xanh."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Nơi cách ly phải thông thoáng, không sử dụng máy lạnh trung tâm; thường xuyên làm vệ sinh các bề mặt, vật dụng, nhà vệ sinh."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Thường xuyên sát khuẩn tay; khử khuẩn các vật dụng và bề mặt tiếp xúc như mặt bàn, tay nắm cửa, bồn cầu, lavabo... Phân loại chất thải đúng quy định"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Có số điện thoại của nhân viên y tế Cơ sở đang quản lý người nhiễm COVID-19 tại nhà để liên hệ khi cần tư vấn, hỗ trợ"
+                    android:textSize="16dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/female_sick" />
+
+                <TextView
+                    android:text="Những điều F0 không nên làm"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Không tự ý rời khỏi phòng cách ly trong suốt thời gian cách ly."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Không sử dụng chung vật dụng với người khác."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Không ăn uống cùng với người khác."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Không tiếp xúc gần với người khác hoặc vật nuôi. Trường hợp cần có người chăm sóc, người chăm sóc phải đeo khẩu trang, kính chắn giọt bắn, vệ sinh tay trước và sau khi chăm sóc."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Các dấu hiệu cần báo ngay cho Cơ sở quản lý người nhiễm COVID-19 tại nhà"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="Người F0 hoặc người chăm sóc báo ngay cho Cơ sở đang quản lý người nhiễm COVID-19 tại nhà nếu người F0 có MỘT trong các dấu hiệu sau đây:"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Khó thở, thở hụt hơi, hoặc ở trẻ em có dấu hiệu thở bất thường: thở rên, rút lõm lồng ngực, phập phồng cánh mũi, khò khè, thở rít thì hít vào."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Nhịp thở tăng: ≥ 21 lần/phút đối với người lớn; ≥ 40 lần/phút đối với trẻ từ 01 đến dưới 05 tuổi; ≥ 30 lần/phút đối với trẻ từ 05 đến dưới 12 tuổi."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='- Độ bão hòa oxy trong máu ngoại vi (SpO2) &lt; 96% (nếu đo được).'
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Mạch nhanh &gt; 120 lần/phút hoặc dưới 50 lần/phút"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Huyết áp thấp: Huyết áp tối đa &lt; 90 mmHg, huyết áp tối thiểu &lt; 60 mmHg (nếu đo được)."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Đau tức ngực thường xuyên, cảm giác bó thắt ngực, đau tăng khi hít sâu."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Thay đổi ý thức: Lú lẫn, ngủ rũ, lơ mơ, rất mệt/mệt lả, trẻ quấy khóc, li bì khó đánh thức, co giật."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Tím môi, tím đầu móng tay, móng chân, da xanh, môi nhợt, lạnh đầu ngón tay, ngón chân."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Không thể uống."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Trẻ có biểu hiện: Sốt trên 38oC, đau rát họng, ho, tiêu chảy, trẻ mệt, không chịu chơi, tức ngực, cảm giác khó thở, SpO2 &lt; 96% (nếu đo được), ăn/bú kém..."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Hướng dẫn sử dụng thuốc"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="Chủ yếu vẫn là bổ sung vitamin và khoáng chất để nâng cao sức đề kháng. Các loại vitamin có thể uống 1 trong 2 loại sau là: vitamin tổng hợp HOẶC vitamin C. Có thể dùng kết hợp thêm dược liệu y học cổ truyền. Khi bị sốt hoặc bị các triệu chứng nhẹ thì uống thuốc theo đơn thuốc đã được chỉ định."
+                    android:textSize="16dp"/>
+
+
+                <TextView
+                    android:text="Nguồn thông tin"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/treatment_source_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:id="@+id/treatment_source_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:textSize="16dp"/>
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

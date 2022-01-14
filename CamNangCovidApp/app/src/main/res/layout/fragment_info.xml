@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InfoFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:gl="http://schemas.android.com/apk/res-auto"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/app_bar_main"
+        style="@style/parent.contentLayout">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="Cẩm nang COVID-19"
+                    style="@style/viewParent.headerText" />
+
+                <TextView
+                    android:text="Những điều bạn cần biết về COVID-19."
+                    style="@style/viewParent.headerText.contentText"
+                    android:layout_marginBottom="20dp"/>
+
+
+                <!--Example with RelativeLayout and Gradient Drawable -->
+                <!-- for Recycler view use any of the layout as model-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/corona_virus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_marginTop="10dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <net.colindodd.gradientlayout.GradientRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:minHeight="100dp"
+                        gl:end_color="@color/gradientLightYellow2"
+                        gl:start_color="@color/gradientLightOrange2"
+                        gl:orientation="LEFT_RIGHT"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/textViewSub1Title"
+                            android:text="Bệnh COVID-19"
+                            style="@style/viewParent.headerText.HomeCardTitle" />
+
+                        <TextView
+                            android:text="Vi-rút Corona là gì, triệu chứng\nthường gặp khi mắc COVID-19"
+                            style="@style/viewParent.headerText.homeCardContent"
+                            android:layout_below="@id/textViewSub1Title"/>
+
+                        <ImageView
+                            android:maxHeight="90dp"
+                            android:src="@drawable/home_ic_symptom"
+                            style="@style/homeCardImage" />
+
+                    </net.colindodd.gradientlayout.GradientRelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <!--if the second one is used as model for recyclerView, refer:
+                https://appsnipp.com/gradient-layout-for-dynamic-gradients-in-android-without-drawable-library/
+                -->
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/vaccine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_marginTop="10dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <net.colindodd.gradientlayout.GradientRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:minHeight="100dp"
+                        gl:start_color="@color/gradientLightYellow"
+                        gl:end_color="@color/gradientOrange"
+                        gl:orientation="LEFT_RIGHT"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/textViewSub2Title"
+                            android:text="Vaccine COVID-19"
+                            style="@style/viewParent.headerText.HomeCardTitle" />
+
+                        <TextView
+                            android:text="Những điều cần biết về\nvaccine COVID-19."
+                            style="@style/viewParent.headerText.homeCardContent"
+                            android:layout_below="@id/textViewSub2Title"/>
+
+                        <ImageView
+                            android:maxHeight="90dp"
+                            android:src="@drawable/home_ic_vaccine"
+                            style="@style/homeCardImage" />
+
+                    </net.colindodd.gradientlayout.GradientRelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/health_care"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_marginTop="10dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:minHeight="100dp"
+                        android:background="@drawable/home_gradient_health_care"
+                        android:padding="10dp">
+
+
+
+                        <TextView
+                            android:id="@+id/textViewSub3Title"
+                            android:text="Nâng cao sức khỏe"
+                            style="@style/viewParent.headerText.HomeCardTitle" />
+
+                        <TextView
+                            android:text="Thể dục thể thao, ăn uống hợp lý,\nbổ sung vitamin để phòng bệnh"
+                            style="@style/viewParent.headerText.homeCardContent"
+                            android:layout_below="@id/textViewSub3Title"/>
+
+                        <ImageView
+                            android:maxHeight="90dp"
+                            android:src="@drawable/home_ic_health_care"
+                            style="@style/homeCardImage" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/rapid_test"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_marginTop="10dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <net.colindodd.gradientlayout.GradientRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:minHeight="100dp"
+                        gl:start_color="@color/gradientLightOrange2"
+                        gl:end_color="@color/gradientOrange3"
+                        gl:orientation="LEFT_RIGHT"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/textViewSub4Title"
+                            android:text="Test nhanh"
+                            style="@style/viewParent.headerText.HomeCardTitle" />
+
+                        <TextView
+                            android:text="Hướng dẫn tự test nhanh\ntại nhà đúng cách"
+                            style="@style/viewParent.headerText.homeCardContent"
+                            android:layout_below="@id/textViewSub4Title"/>
+
+                        <ImageView
+                            android:maxHeight="90dp"
+                            android:src="@drawable/home_ic_test"
+                            style="@style/homeCardImage" />
+
+                    </net.colindodd.gradientlayout.GradientRelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/treatment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_marginTop="10dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <net.colindodd.gradientlayout.GradientRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:minHeight="100dp"
+                        gl:start_color="@color/gradientViolet"
+                        gl:end_color="@color/gradientLightBlue"
+                        gl:orientation="LEFT_RIGHT"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/textViewSub5Title"
+                            android:text="Điều trị tại nhà"
+                            style="@style/viewParent.headerText.HomeCardTitle" />
+
+                        <TextView
+                            android:text="Hướng dẫn điều trị tại nhà đúng\ncách và đảm bảo an toàn"
+                            style="@style/viewParent.headerText.homeCardContent"
+                            android:layout_below="@id/textViewSub5Title"/>
+
+                        <ImageView
+                            android:maxHeight="90dp"
+                            android:src="@drawable/home_ic_treatment"
+                            style="@style/homeCardImage" />
+
+                    </net.colindodd.gradientlayout.GradientRelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/long_term_effects"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_marginTop="10dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <net.colindodd.gradientlayout.GradientRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:minHeight="100dp"
+                        gl:start_color="@color/gradientLightGreen"
+                        gl:end_color="@color/gradientLightBlue"
+                        gl:orientation="LEFT_RIGHT"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/textViewSub6Title"
+                            android:text="Di chứng"
+                            style="@style/viewParent.headerText.HomeCardTitle" />
+
+                        <TextView
+                            android:text="Những triệu chứng kéo dài của\nngười đã khỏi bệnh"
+                            style="@style/viewParent.headerText.homeCardContent"
+                            android:layout_below="@id/textViewSub6Title"/>
+
+                        <ImageView
+                            android:maxHeight="90dp"
+                            android:src="@drawable/home_ic_long_term_effects"
+                            style="@style/homeCardImage" />
+
+                    </net.colindodd.gradientlayout.GradientRelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

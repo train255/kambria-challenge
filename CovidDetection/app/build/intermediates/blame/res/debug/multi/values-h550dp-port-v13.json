@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-h550dp-port-v13/values-h550dp-port-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 76,
+                    "endOffset": 127
+                },
+                "from": {
+                    "file": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/values-h550dp-port-v13/values-h550dp-port-v13.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 76,
+                        "endOffset": 127
+                    }
+                }
+            }
+        ]
+    }
+]

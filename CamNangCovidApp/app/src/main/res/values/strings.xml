@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Cẩm nang COVID-19</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="Done">Xong</string>
+    <string name="Upload">Tải lên</string>
+    <string name="Uploading">Đang tải lên</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

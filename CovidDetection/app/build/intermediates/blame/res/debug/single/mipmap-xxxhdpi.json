@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi/ic_launcher.png",
+        "source": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/train/projects/java/CovidDetection/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi/ic_launcher.png",
+        "source": "/home/train/projects/java/CovidDetection/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    }
+]

@@ -1,0 +1,199 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeLongTermEffectsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/parent.contentLayout"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/app_bar_main">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:src="@drawable/long_term_effects_detail" />
+
+                <TextView
+                    android:text="Hội chứng Covid kéo dài"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    style="@style/viewParent.headerText" />
+
+                <TextView
+                    android:text="Hội chứng Covid kéo dài  là gì?"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="Theo thông cáo của Tổ Chức Y Tế Thế Giới (WHO) vào ngày 06/10/2021, hội chứng Covid kéo dài được định nghĩa là: “Tình trạng sau khi mắc Covid - 19 xảy ra ở những người từng nhiễm SARS – CoV-2, thường là 3 tháng kể từ khi mắc bệnh với các triệu chứng kéo dài ít nhất 2 tháng và không thể giải thích bằng chẩn đoán. Các triệu chứng phổ biến bao gồm: mệt mỏi, khó thở, rối loạn nhận thức và những triệu chứng khác, thường ảnh hưởng đến hoạt động hàng ngày. Các triệu chứng có thể xuất hiện khi Covid - 19 mới khởi phát hoặc sau khi bệnh nhân phục hồi. Các triệu chứng Covid kéo dài có thể thay đổi hoặc tái phát theo thời gian”."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Các biểu hiện của hội chứng Covid kéo dài"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="WHO ước tính 10 - 20% bệnh nhân Covid - 19 trải qua các triệu chứng kéo dài trong nhiều tháng sau khi mắc bệnh. Giống bệnh cảnh Covid - 19 cấp tính, hội chứng Covid kéo dài gây tổn thương và biểu hiện triệu chứng ở nhiều cơ quan: hô hấp, tim mạch, tâm thần kinh, tiêu hóa, nội tiết, thận, da lông. Triệu chứng thường gặp nhất là: mệt mỏi kéo dài, đau đầu, đau cơ khớp, ho, khó thở, đặc biệt là khó thở khi vận động gắng sức, rụng tóc, mất mùi vị, giảm khả năng nhận thức, giảm tập trung, lú lẫn, hay các rối loạn tâm lý, như lo âu, trầm cảm, rối loạn giấc ngủ. Không chỉ biểu hiện bằng các triệu chứng lâm sàng kể trên, mà ở người bệnh còn có thể xuất hiện những bất thường cận lâm sàng như tăng men tim kéo dài, rối loạn đường huyết, rối loạn hormon giáp, giảm độ lọc cầu thận; rối loạn chức năng hô hấp: giảm độ khuếch tán phổi, hạn chế dung tích phổi; bất thường hình ảnh học: xơ phổi, giãn phế quản trên CT scan ngực, rối loạn chức năng tâm thất qua siêu âm tim..."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Những bệnh nhân nào dễ mắc?"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="Tất cả bệnh nhân Covid - 19 cấp tính đều có thể mắc hội chứng Covid kéo dài, bao gồm từ người không triệu chứng tới bệnh nhân rất nặng phải điều trị trong Đơn vị chăm sóc tích cực."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Văn phòng thống kê quốc gia Anh báo cáo hai nhóm có tỷ lệ mắc hội chứng Covid kéo dài nhiều nhất là nữ và nhóm tuổi 35 – 49 tuổi. Ngoài ra, những người sống ở các khu vực bị ảnh hưởng nặng nề nhất bởi bệnh dịch, những người làm trong ngành y tế, và những người có vấn đề sức khoẻ khác hoặc tàn tật cũng là đối tượng thường mắc hội chứng này. Người nhiễm Covid – 19 nhập viện cũng có tỉ lệ mắc hội chứng Covid kéo dài cao hơn người không nhập viện."
+                    android:textSize="16dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/long_term_effect_covid19" />
+
+                <TextView
+                    android:text="Cơ chế gây bệnh"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="Các chuyên gia giả thuyết rằng hội chứng này được gây ra bởi 3 cơ chế chính:"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Thứ nhất là sự xâm nhập trực tiếp của virus SARS – CoV2 vào tế bào cơ thể người thông qua thụ thể của men chuyển hóa angiotensin 2 (ACE2), gây ra vô số tổn thương cấu trúc và rối loạn chức năng của tế bào mang thụ thể ACE2 ở hàng loạt các hệ thống cơ quan như: hô hấp, tim mạch, tiêu hóa, nội tiết, thần kinh, cơ xương khớp, da lông."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Thứ hai là phản ứng viêm và phản ứng miễn dịch quá mức của cơ thể trong quá trình chống lại sự xâm nhập và phát triển của virus, biểu hiện bằng hội chứng nổi tiếng “cơn bão cytokines” - gây bệnh cảnh nặng, tổn hại đa cơ quan trong đợt bệnh cấp."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Thứ ba là những yếu tố tâm lý xã hội tiêu cực từ đại dịch như: hoảng loạn khi nhiễm bệnh, nghèo đói, mất việc, cách ly, mất người thân, đặc biệt là những bệnh nhân sống sót sau bệnh cảnh nguy kịch, từng điều trị tại Đơn vị chăm sóc tích cực."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Phòng ngừa và xử lý các triệu chứng hội chứng Covid kéo dài"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="Hội chứng Covid kéo dài hiện nay đang là vấn đề đáng lo ngại cho sức khỏe cộng đồng do tác động đáng kể của nó đối với xã hội, từ tăng chi phí chăm sóc sức khỏe đến thiệt hại về kinh tế và ảnh hưởng đến năng suất lao động."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Những nguyên tắc chung trong việc xử lý các triệu chứng Covid kéo dài:"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Cần kiên trì: phải hiểu rằng các triệu chứng này sẽ dần dần giảm hoặc mất đi, nhưng cần thời gian. Do đó, hãy bình tĩnh, không căng thẳng, lo lắng. Căng thẳng lo lắng đôi khi làm triệu chứng nặng thêm, ví dụ như triệu chứng khó thở, hãy cho cơ thể có thời gian nghỉ ngơi phục hồi, không vội vàng, xây dựng lịch làm việc, học tập điều độ nhưng nhẹ nhàng."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Áp dụng các hướng dẫn phục hồi chức năng tại nhà ví dụ như tập thở, tập thể dục, thư giãn…"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Đi khám ngay khi có các triệu chứng nặng lên hoặc có các dấu hiệu nguy hiểm, ví dụ như: khó thở nặng, đau ngực nặng, buồn nôn, chóng mặt..."
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="- Đến các cơ sở y tế có chức năng điều trị, phục hồi chức năng để được hướng dẫn, theo dõi và điều trị phù hợp."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Nguồn thông tin"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/treatment_source_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:textSize="16dp"/>
+
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    <item-->
+<!--        android:id="@+id/navigationMenu"-->
+<!--        android:icon="@android:drawable/ic_menu_sort_by_size"-->
+<!--        android:title="Menu" />-->
+
+    <item
+        android:id="@+id/navigationHome"
+        android:icon="@drawable/ic_home"
+        android:title="Trang chủ" />
+
+    <item
+        android:id="@+id/navigationRecord"
+        android:icon="@android:drawable/ic_btn_speak_now"
+        android:title="Test nhanh" />
+
+<!--    <item-->
+<!--        android:id="@+id/navigationHistory"-->
+<!--        android:icon="@android:drawable/ic_menu_recent_history"-->
+<!--        android:title="Lịch sử" />-->
+
+<!--    <item-->
+<!--        android:id="@+id/navigationGift"-->
+<!--        android:icon="@android:drawable/ic_menu_gallery"-->
+<!--        android:title="Quà" />-->
+
+</menu>

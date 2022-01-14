@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color-night-v8/material_timepicker_button_stroke.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color-night-v8/material_timepicker_button_stroke.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color-night-v8/material_timepicker_clockface.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color-night-v8/material_timepicker_clockface.xml"
+    },
+    {
+        "merged": "/home/train/projects/java/kambria-challenge01/CovidDetection/app/build/intermediates/res/merged/debug/color-night-v8/material_timepicker_modebutton_tint.xml",
+        "source": "/home/train/.android/build-cache/a511882373a1f9d93bc4e68bd5b9d853a3442187/output/res/color-night-v8/material_timepicker_modebutton_tint.xml"
+    }
+]

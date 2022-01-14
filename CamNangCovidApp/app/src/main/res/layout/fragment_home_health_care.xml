@@ -1,0 +1,220 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeHealthCareFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/parent.contentLayout"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/app_bar_main">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:src="@drawable/heal_care_detail" />
+
+                <TextView
+                    android:text="Nâng cao sức đề kháng"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    style="@style/viewParent.headerText" />
+
+                <TextView
+                    android:text="Sức đề kháng là gì?"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="Sức đề kháng chính là khả năng của cơ thể chống lại các tác nhân gây bệnh xâm nhập vào cơ thể. Có hai loại là sức đề kháng tự nhiên và sức đề kháng tổng hợp. Trong đó sức đề kháng tổng hợp hưởng lợi từ chế độ dinh dưỡng hợp lý, tiêm phòng vắc-xin và tập thể dục thể thao đều đặn."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Thể dục thể thao"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="Theo các chuyên gia, tập luyện thể dục thể thao giúp hệ miễn dịch hoạt động tốt hơn, tấn công nhanh hơn các loại vi rút xâm nhập. Miễn dịch là hệ thống bảo vệ và phát hiện của cơ thể chống lại tác nhân gây bệnh do ngoại lai như vi rút, vi khuẩn… Những người tập luyện thể dục thể thao đều đặn đều cảm thấy chức năng hô hấp được cải thiện, trao đổi khí qua phổi một cách tốt hơn. Ngoài ra, thể chất được cải thiện cũng giúp tinh thần phấn chấn, giảm thiểu những tác nhân gây stress, căng thẳng, nhất là trong những ngày dịch bệnh. Với người thường xuyên không hoạt động thể chất sẽ gây ra rất nhiều tác hại ảnh hưởng xấu đến sức khỏe như huyết áp cao, cholesterol cao và những rủi ro đáng quan tâm khác."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Bộ Y tế và Tổ chức Y tế thế giới (WHO) tại Việt Nam đã hướng dẫn một số cách vận động để mọi người có thể tập luyện ở nhà trong mùa dịch như: leo cầu thang, tập các bài co duỗi chân tay, nhảy dây, tập các bài luyện cơ bắp và thăng bằng. Yoga hay thiền là các thể loại tập luyện nhẹ nhàng phù hợp ở nhà được khuyến cáo giúp cơ thể giảm căng thẳng và tập trung hơn trong công việc."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Mọi người cũng có thể tham gia các lớp tập thể dục trực tuyến, tìm và tập theo các bài tập có hướng dẫn trên mạng, nhún nhảy theo nhạc hoặc thực hành các trò chơi vận động qua video; lựa chọn một số thiết bị tập đơn giản, dễ tập ở nhà và tự tập như các quả tạ đơn, tạ chuông, dây đàn hồi, tập gym."
+                    android:textSize="16dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/yoga" />
+
+                <TextView
+                    android:text="Bổ sung dinh dưỡng"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="Đầu tiên cần ghi nhớ rằng chế độ dinh dưỡng cân bằng là tiền đề cho việc giữ cơ thể khỏe mạnh. Một bữa ăn cần phải ăn đủ các nhóm chất dinh dưỡng: chất bột, chất béo, chất đạm, vitamin và khoáng chất. Hạn chế mua các loại thức ăn, đồ hộp chế biến sẵn không bảo đảm dưỡng chất vì đã trải qua quá trình chế biến, đóng gói công nghiệp."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Việc bổ sung các vitamin, khoáng chất có đặc tính tăng cường miễn dịch lại được ưu tiên hơn. Vitamin C là chất dinh dưỡng cần thiết giúp làm tăng khả năng sản sinh của bạch cầu trong máu. Các loại trái cây họ cam quýt như bưởi, cam, chanh,... hay các loại quả như dứa, dừa, dưa lưới,... là những nguồn rất giàu vitamin C."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Ngoài việc ăn tươi, có thể pha chế những loại trái cây trên dưới dạng nước ép thì vẫn giữ được dưỡng chất tăng cường đề kháng. Rau xanh chứa nhiều vitamin C, E và chất chống oxy hóa. Một số loại giúp tăng cường miễn dịch hạn chế cảm cúm như rau bó xôi, rau cải, bí đỏ, rau má, rau bồ ngót..."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Khi ở nhà, cơ thể ít vận động, việc bổ sung rau xanh thay thế cho hàm lượng tinh bột cũng giúp cơ thể ngăn ngừa béo phì, cải thiện tinh thần, giảm căng thẳng. Một số loại rau xanh như súp lơ, măng tây, rau chân vịt... có tác dụng giúp cơ thể giảm bớt căng thẳng, stress."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Magie rất có lợi cho sức khỏe tim mạch và não, giúp ngăn ngừa thiếu hụt khoáng chất và bệnh mãn tính. Bổ sung magie thông qua các loại thực phẩm như: gà, cá hồi, các loại hải sản... giúp tăng đường huyết cũng như cân bằng hormone trong cơ thể. Đặc biệt magie đóng vai trò quan trọng trong việc giảm rối loạn tâm trạng, bao gồm trầm cảm và lo âu, của nhiều người hiện nay khi phải ở nhà thường xuyên."
+                    android:textSize="16dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/fruit" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Cần uống 8 - 10 ly nước mỗi ngày nhằm giúp quá trình phân phối chất dinh dưỡng đến tế bào cơ thể được diễn ra nhanh chóng. Khi được cung cấp đủ nước, cơ thể chúng ta sẽ trở nên hưng phấn và tràn đầy năng lượng hơn."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Những điều cần lưu ý trong việc ăn uống"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="Trong mùa dịch, các mầm bệnh có thể xuất hiện ở mọi nơi kể cả bề mặt thực phẩm, vì thế chúng ta nên ăn chín uống sôi, cần thiết hãy tráng nước sôi đồ dùng trước khi ăn uống. Hạn chế tối đa các món chiên, nướng vì những loại thực phẩm này có thể gây suy yếu hệ thống miễn dịch và tích tụ các mầm bệnh."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Hạn chế mua các loại thức ăn, đồ hộp chế biến sẵn không bảo đảm dưỡng chất vì đã trải qua quá trình chế biến, đóng gói công nghiệp. Hạn chế sử dụng nước ngọt có ga hoặc thức uống có chứa caffeine vì điều này rất có hại cho sức khỏe."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text="Đặc biệt, cần hạn chế áp dụng các phương pháp giảm cân, detox thanh lọc cơ thể, khiến cơ thể thiếu hụt dưỡng chất. Khi không ăn uống đầy đủ và đúng cách, hệ miễn dịch cơ thể rất dễ bị phá vỡ khiến cho mầm bệnh dễ xâm nhập."
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Nguồn thông tin"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/health_care_source_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:id="@+id/health_care_source_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:id="@+id/health_care_source_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:textSize="16dp"/>
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

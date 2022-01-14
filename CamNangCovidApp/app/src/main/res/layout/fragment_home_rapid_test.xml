@@ -1,0 +1,277 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeRapidTestFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/parent.contentLayout"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/app_bar_main">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:src="@drawable/rapid_test_detail" />
+
+                <TextView
+                    android:text="Hướng dẫn tự test nhanh tại nhà"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    style="@style/viewParent.headerText" />
+
+                <TextView
+                    android:text="Test nhanh kháng nguyên COVID-19 là gì?"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text='Test nhanh kháng nguyên COVID-19 là xét nghiệm có tính đặc hiệu, nhanh chóng và có giá trị trong việc sàng lọc COVID-19 ở những người không có triệu chứng để phát hiện hoặc loại trừ nhiễm COVID-19. Qua đó để thực hiện nhanh các biện pháp phòng ngừa và kiểm soát lây nhiễm, hạn chế lây lan cộng đồng.'
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Vi-rút SARS-CoV-2 sau khi đi vào cơ thể sẽ xuất hiện ở niêm mạc đường hô hấp trên (khoang mũi và họng). Test nhanh kháng nguyên phát hiện sự hiện diện của virus SARS-CoV-2 trong mẫu dịch đường hô hấp trên bằng cách phát hiện các protein trên bề mặt của virus được gọi là kháng nguyên.'
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Quy trình test nhanh kháng nguyên"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:text="Bước 1"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Lấy mẫu. Đặt ống chiết mẫu có sẵn dung dịch đệm lên giá đỡ, lấy khay thử ra khỏi túi đựng và sử dụng càng nhanh càng tốt trong vòng 1 giờ. Đặt khay thử lên bề mặt phẳng sạch nằm ngang, lấy que lấy mẫu vô trùng ra khỏi túi và tiến hành thu thập các mẫu xét nghiệm.'
+                    android:textSize="16dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/test_step1" />
+
+                <TextView
+                    android:text="Bước 2"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Thu thập mẫu, ngoáy dịch tỵ hầu. Ở bước này, người dân nên ngồi ở tư thế đầu nghiêng về phía sau một góc 70 độ, sau đó đưa que lấy mẫu qua lỗ mũi, đẩy sâu vào tỵ hầu đến khi có vật cản thì dừng lại, xoay que 3 lần và giữ yên 5 đến 10 giây, nhẹ nhàng xoay và rút que ra khỏi mũi.'
+                    android:textSize="16dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/test_step2" />
+
+                <TextView
+                    android:text="Bước 3"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Dùng tay xoay đều tăm bông trong tuýp nhựa chứa dung dịch đệm, nhúng que tăm bông lên xuống trong dung dịch đệm (10 lần). Để đầu que ngâm trong dung dịch 1 phút.'
+                    android:textSize="16dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/test_step3" />
+
+                <TextView
+                    android:text="Bước 4"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Chuyển tay lên phần thân trên tuýp, bóp chặt và rút từ từ que tăm bông. Đảm bảo vắt sạch toàn bộ dung dịch còn đọng trên đầu tăm bông xuống đáy tuýp.'
+                    android:textSize="16dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/test_step4" />
+
+                <TextView
+                    android:text="Bước 5"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Đóng chặt nắp màng lọc, lắc đều dung dịch trong tuýp bằng tay (5 lần)'
+                    android:textSize="16dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/test_step5" />
+
+                <TextView
+                    android:text="Bước 6"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Ghi tên mỗi thành viên lên từng khay test tương ứng. Nhỏ 03-05 giọt dung dịch trên vào giếng test (theo hướng dẫn của nhà sản xuất).'
+                    android:textSize="16dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/test_step6" />
+
+                <TextView
+                    android:text="Bước 7"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Mỗi bộ kit test sẽ có thời gian chờ kết quả khác nhau, đọc kỹ hướng dẫn của nhà sản xuất. Thông thường đọc kết quả sau 15-20 phút'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Trường hợp âm tính (chỉ xuất hiện 1 vạch C): kết luận mẫu bệnh phẩm của người được lấy mẫu có kết quả âm tính tại thời điểm xét nghiệm.'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Trường hợp dương tính (xuất hiện cả 2 vạch C và T): kết luận mẫu bệnh phẩm của người được lấy mẫu có kết quả dương tính bằng phương pháp test nhanh kháng nguyên tại thời điểm xét nghiệm.'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Kết quả không hợp lệ nếu không xuất hiện vạch chứng C nguyên nhân do thiếu mẫu hoặc khay thử bị hỏng, làm lại xét nghiệm thử mới hoặc liên hệ với cơ quan y tế để được tư vấn và hỗ trợ.'
+                    android:textSize="16dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/test_result" />
+
+                <TextView
+                    android:text="Bước 8"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Hủy bỏ vật liệu xét nghiệm đã qua sử dụng. Vật liệu đã xét nghiệm cần thu lại, gói kín vào túi riêng để nơi cố định và được đơn vị chức năng thu gom, xử lý theo quy định.'
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Nguồn thông tin"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/test_source_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:id="@+id/test_source_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

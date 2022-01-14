@@ -1,0 +1,276 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeCoronaFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/parent.contentLayout"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/app_bar_main">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:src="@drawable/symptoms_detail" />
+
+                <TextView
+                    android:text="Bệnh COVID-19"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    style="@style/viewParent.headerText" />
+
+                <TextView
+                    android:text="Virus Corona là gì?"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text='Virus Corona là chủng virus mới chưa từng xuất hiện ở người, nó gây ra bệnh đường hô hấp truyền nhiễm COVID-19. Cấu trúc của virus gồm 4 proteins, trong đó có những protein S trên bề mặt vi-rút tạo thành hình dạng giống một chiếc vương miện, nên được đặt tên là "Corona". Protein S chịu trách nhiệm liên kết với tế bào vật chủ và là thụ thể để virus xâm nhập vào tế bào. Những protein S này là mục tiêu lý tưởng để tạo nên vắc-xin ngừa COVID-19'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Bùng phát vào cuối tháng 12/2019, bắt nguồn từ một chợ hải sản ở Hồ Nam, Vũ Hán, miền Trung Trung Quốc, virus Corona ban đầu được xác nhận là một loại bệnh "viêm phổi lạ" hoặc "viêm phổi không rõ nguyên nhân". Chỉ sau 100 ngày xuất hiện, đại dịch viêm đường hô hấp cấp do virus Corona đã nhanh chóng tác động tới các lĩnh vực kinh tế, xã hội, thị trường tài chính chao đảo, nền kinh tế toàn cầu rơi vào suy thoái với tỷ lệ thất nghiệp và nghèo đói chưa từng có trong lịch sử.'
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="COVID-19 lây lan như thế nào?"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text='Vi rút có thể lây lan từ miệng hoặc mũi của người bị bệnh dưới dạng các giọt nhỏ khi họ ho, hắt hơi, nói, hát hoặc thở. Các hạt này có thể có kích thước từ những giọt nhỏ hơn trong đường hô hấp đến những hạt bình xịt nhỏ hơn, và mọi người có thể bị lây nhiễm cho dù họ có biểu hiện các triệu chứng hay không.'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Một người có thể bị nhiễm vi rút khi hít phải giọt bắn nhỏ chứa vi rút hoặc tiếp xúc trực tiếp với mắt, mũi hoặc miệng. Vi-rút cũng có thể lây lan ở những nơi thông gió kém và / hoặc trong nhà đông đúc, nơi mọi người có xu hướng ở lâu hơn. Các vị trí trong nhà, đặc biệt là những nơi có hệ thống thông gió kém, có nhiều rủi ro hơn các vị trí ngoài trời.'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Mọi người cũng có thể bị nhiễm khi chạm vào miệng, mũi hoặc mắt sau khi chạm vào các bề mặt bị nhiễm vi rút. Các chuyên gia đang tiếp tục nghiên cứu cách COVID-19 lây lan và những tình huống nào có rủi ro cao nhất.'
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Thời gian ủ bệnh COVID-19"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text='Một người nhiễm virus Corona có thể xuất hiện các triệu chứng đầu tiên sau thời gian ủ bệnh khoảng 2-14 ngày, trung bình là 5 ngày. Trong thời gian ủ bệnh, virus vẫn có thể lây truyền gây nhiễm bệnh.'
+                    android:textSize="16dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/covid_visual" />
+
+                <TextView
+                    android:text="Các triệu chứng của COVID-19 là gì?"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text='Nhiều triệu chứng COVID-19 tương tự như các triệu chứng của bệnh cúm, cảm lạnh thông thường và các bệnh khác, vì vậy cần phải xét nghiệm để xác nhận xem ai đó có mắc bệnh COVID-19 hay không. Các triệu chứng có thể xuất hiện từ 2 đến 14 ngày sau khi tiếp xúc với vi rút và có thể từ rất nhẹ đến nặng. Một số người đã bị nhiễm bệnh không có bất kỳ triệu chứng nào.'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Các triệu chứng phổ biến nhất là sốt, ho và mệt mỏi. Các triệu chứng khác có thể bao gồm khó thở, đau hoặc tức ngực, đau nhức cơ hoặc cơ thể, đau đầu, mất vị giác hoặc khứu giác, lú lẫn, đau họng, nghẹt mũi hoặc chảy nước mũi, tiêu chảy, buồn nôn và nôn, đau bụng và phát ban trên da. Ngoài những triệu chứng này, trẻ sơ sinh có thể khó bú. Trẻ em ở mọi lứa tuổi đều có thể lây nhiễm COVID-19. Trong khi trẻ em và người lớn gặp các triệu chứng tương tự, trẻ em thường ít mắc bệnh nghiêm trọng hơn người lớn.'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='Các triệu chứng cần được chăm sóc y tế khẩn cấp bao gồm khó thở / thở nhanh hoặc nông (cũng có thể rên rỉ, không có khả năng bú mẹ ở trẻ sơ sinh), môi hoặc mặt xanh, đau hoặc tức ngực, lú lẫn, không thể thức dậy / không tương tác, không thể uống hoặc không uống được chất lỏng và đau dạ dày nghiêm trọng.'
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:text="Làm cách nào để bảo vệ bản thân và những người khác khỏi COVID-19?"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:text='Sự bùng phát gần đây của COVID-19 ở một số quốc gia là một lời nhắc nhở về tầm quan trọng của việc tiếp tục nghiêm túc thực hiện các biện pháp phòng dịch. Dưới đây là một số điều bạn và gia đình có thể thực hiện để tránh lây nhiễm COVID-19:'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='- Tránh những nơi đông người, không gian kín và hạn chế với hệ thống thông gió kém, và cố gắng tập thói quen giữ khoảng cách với người khác khi bạn ở nơi công cộng, giữ khoảng cách ít nhất 1 mét giữa bạn và những người xung quanh'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='- Đeo khẩu trang khi ở những nơi công cộng, nơi có thể có sự lây lan trong cộng đồng và những nơi không thể tạo ra khoảng cách vật lý'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='- Thường xuyên rửa tay bằng xà phòng và nước hoặc dung dịch khử khuẩn có cồn'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='- Giữ cho tất cả các không gian trong nhà được thông thoáng'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='- Che miệng và mũi bằng khuỷu tay hoặc khăn giấy khi ho hoặc hắt hơi. Vứt bỏ khăn giấy đã qua sử dụng ngay lập tức'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='- Thường xuyên làm sạch và khử trùng các bề mặt thường xuyên chạm vào như điện thoại, tay nắm cửa, công tắc đèn và mặt bàn'
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:justificationMode="inter_word"
+                    android:text='- Tìm kiếm sự chăm sóc y tế sớm nếu bạn hoặc con bạn bị sốt, ho, khó thở hoặc các triệu chứng khác của COVID-19'
+                    android:textSize="16dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/khautrang" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/khukhuan" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/khoangcach" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/khongtutap" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/khaibaoyte" />
+
+                <TextView
+                    android:text="Nguồn thông tin"
+                    style="@style/viewParent.headerText"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/covid19_source_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:id="@+id/covid19_source_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:id="@+id/covid19_source_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:id="@+id/covid19_source_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"/>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
